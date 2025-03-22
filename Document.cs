@@ -16,13 +16,15 @@ public partial class Document : RigidBody2D
 	private bool _grabbing;
 
 	private Polygon2D _polygon2D;
+	private Polygon2D _shadowPolygon2D;
 	private CollisionPolygon2D _collisionPolygon2D;
 
 	private PinJoint2D _pin;
 
     public override void _Ready()
     {
-        _polygon2D = GetChild<Polygon2D>(1);
+        _polygon2D = GetChild<Polygon2D>(2);
+		_shadowPolygon2D = GetChild<Polygon2D>(1);
 		_collisionPolygon2D = GetChild<CollisionPolygon2D>(0);
     }
 
@@ -67,6 +69,7 @@ public partial class Document : RigidBody2D
 	}
 	public void SetShape(Vector2[] polygon) {
 		_polygon2D.Polygon = polygon;
+		_shadowPolygon2D.Polygon = polygon;
 		_polygon2D.UV = polygon;
 		_collisionPolygon2D.Polygon = polygon;
 	}

@@ -15,9 +15,16 @@ MovementScalar = 10.0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-128, 192, -128, -192, 128, -192, 128, 192)
 
+[node name="Shadow" type="Polygon2D" parent="."]
+position = Vector2(8, 8)
+color = Color(0, 0, 0, 0.411765)
+texture = ExtResource("2_jnxnq")
+texture_offset = Vector2(128, 192)
+texture_scale = Vector2(2.5, 2.5)
+polygon = PackedVector2Array(-128, -192, 128, -192, 128, 192, -128, 192)
+uv = PackedVector2Array(-128, -192, 128, -192, 128, 192, -128, 192)
+
 [node name="Polygon2D" type="Polygon2D" parent="."]
-position = Vector2(456, 160)
-offset = Vector2(-456, -160)
 texture = ExtResource("2_jnxnq")
 texture_offset = Vector2(128, 192)
 texture_scale = Vector2(2.5, 2.5)
