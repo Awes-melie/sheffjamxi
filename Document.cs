@@ -37,10 +37,10 @@ public partial class Document : RigidBody2D
 	{
 		if (eventArgs is InputEventMouseButton mouseEvents)
 		{
-			if (!_mouseOver) return;
-
 			_grabbing = mouseEvents.Pressed;
 			
+			if (!_mouseOver) return;
+
 			if (!_grabbing) return;
 
 			var mousePos = GetGlobalMousePosition();
@@ -62,10 +62,6 @@ public partial class Document : RigidBody2D
 			if (_pin == null) return;
 			_pin.QueueFree();
 			_pin = null;
-
-			// var mousePos = GetGlobalMousePosition();
-			// var deltaMovement = ToLocal(mousePos) - _mouseGrabbedPosition;
-			// Translate(deltaMovement);   
 		}
 	}
 	public void SetShape(Vector2[] polygon) {
