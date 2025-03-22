@@ -105,6 +105,8 @@ public partial class Document : RigidBody2D
 
 			instance.Position = Position;
 			instance.Rotation = Rotation;
+			instance.StateIndex = StateIndex.ToDictionary(e => e.Key, e => e.Value.Clone());
+			instance.ApplyTextures();
 
 			instance.SetShape(polygons[i].Select(ToLocal).ToArray());
 		}
@@ -112,13 +114,15 @@ public partial class Document : RigidBody2D
 		SetShape(polygons[0].Select(ToLocal).ToArray());
 	}
 
-    public void ApplyTextures(IEnumerable<Image> textures)
+    public void ApplyTextures()
     {
-		var combinedTexture = textures.Aggregate((imgA, imgB) =>
-		{
-			var temp = imgA.GetRegion(imgA.GetUsedRect());
-			temp.BlendRect(imgB, new Rect2I(0,0,imgB.GetWidth(),imgB.GetHeight()), Vector2I.Zero);
-			return temp;
+		var combinedTexture = StateIndex
+			.Select(x => x.Value.CurrentTexture.GetImage())
+			.Aggregate((imgA, imgB) =>
+				{
+					var temp = imgA.GetRegion(imgA.GetUsedRect());
+					temp.BlendRect(imgB, new Rect2I(0,0,imgB.GetWidth(),imgB.GetHeight()), Vector2I.Zero);
+					return temp;
 		});
 
 		var newImage = _baseImage.GetRegion(_baseImage.GetUsedRect());
@@ -128,7 +132,7 @@ public partial class Document : RigidBody2D
 		GetChild<Polygon2D>(-1).Texture = ImageTexture.CreateFromImage(newImage);
     }
 
-    public Dictionary<string,FieldState> StateIndex { get; } = new Dictionary<string, FieldState>()
+    public Dictionary<string,FieldState> StateIndex { get; set; } = new Dictionary<string, FieldState>()
     {
         {"test", new FieldState() {FilledType = FilledType.UNFILLED}}
     };
