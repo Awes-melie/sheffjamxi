@@ -20,11 +20,11 @@ public class DocumentUvMapper
 
         if(colour == new Color(1,1,1)) return; // If white (background, ignore)
 
-        var index = _colourIndex.GetValueOrDefault(colour);
+        var index = ColourIndex.FirstOrDefault(x => x.Item1 == colour);
 
         if(index == null) return;
 
-        _actionIndex[index].Invoke(clickEvent); // Do click action
+        _actionIndex[index.Item2].Invoke(clickEvent); // Do click action
     }
 
     public void DefaultClickBehaviour(string index, DocumentClickEvent clickEvent)
@@ -72,9 +72,9 @@ public class DocumentUvMapper
 
     private Image _clickRegions = ResourceLoader.Load<Texture2D>("res://ClickAreaIndex.png").GetImage();
 
-    private Dictionary<Color,string> _colourIndex = new Dictionary<Color, string>
+    public static List<Tuple<Color,string>> ColourIndex {get;} = new List<Tuple<Color, string>>
     {
-        {new Color(1,0,0), "test"}
+        new Tuple<Color, string>(new Color(1,0,0), "test")
     };
 
     private Dictionary<string,Action<DocumentClickEvent>> _actionIndex;
