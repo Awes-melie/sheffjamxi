@@ -1,0 +1,1 @@
+public enum FilledType {UNFILLED, PEN, PENCIL}
