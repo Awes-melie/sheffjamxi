@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dk8ehwp7qq357"]
+[gd_scene load_steps=5 format=3 uid="uid://dk8ehwp7qq357"]
 
 [ext_resource type="PackedScene" uid="uid://cbmwckjlr0jsd" path="res://Hand.tscn" id="1_rpqi1"]
 [ext_resource type="PackedScene" uid="uid://b5q4y3ytkyeyt" path="res://Document.tscn" id="1_x4av3"]
 [ext_resource type="PackedScene" uid="uid://coqoaq664xeyf" path="res://Guillotine.tscn" id="2_x4av3"]
+[ext_resource type="PackedScene" uid="uid://ckl5ttil33d21" path="res://bin.tscn" id="4_uxrcv"]
 
 [node name="MainScene" type="Node2D"]
 
@@ -13,6 +14,51 @@ rotation = -3.14159
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Document" parent="." instance=ExtResource("1_x4av3")]
+position = Vector2(95, 24)
+
+[node name="Document3" parent="." instance=ExtResource("1_x4av3")]
+position = Vector2(-252, 0)
+
+[node name="Document2" parent="." instance=ExtResource("1_x4av3")]
+position = Vector2(-124, -46)
+
+[node name="Document4" parent="." instance=ExtResource("1_x4av3")]
+position = Vector2(-110, 84)
 
 [node name="Guillotine" parent="." instance=ExtResource("2_x4av3")]
-position = Vector2(348, -155)
+position = Vector2(376, -237)
+
+[node name="Bin" parent="." instance=ExtResource("4_uxrcv")]
+position = Vector2(480, 260)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Cutting Label" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -14.4
+anchor_top = -8.2
+anchor_right = 14.4
+anchor_bottom = 8.0
+offset_left = 761.0
+offset_top = 4.00003
+offset_right = -1.0
+offset_bottom = -569.0
+text = "Cut Paper Here
+vvvv
+"
+horizontal_alignment = 1
+
+[node name="Bin Label" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 464.0
+offset_top = 24.0
+offset_right = 504.0
+offset_bottom = 73.0
+text = "Bin
+vvv"
+horizontal_alignment = 1
