@@ -12,10 +12,10 @@ script = ExtResource("1_yks5t")
 MovementScalar = 10.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-64, 96, -64, -96, 64, -96, 64, 96)
+polygon = PackedVector2Array(-128, 192, -128, -192, 128, -192, 128, 192)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-64, -96, 64, -96, 64, 96, -64, 96)
+polygon = PackedVector2Array(-128, -192, 128, -192, 128, 192, -128, 192)
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

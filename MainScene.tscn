@@ -15,10 +15,9 @@ rotation = -3.14159
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Document" parent="." instance=ExtResource("1_x4av3")]
-position = Vector2(64, 32)
 
 [node name="Guillotine" parent="." instance=ExtResource("2_x4av3")]
-position = Vector2(64, -88)
+position = Vector2(0, -247)
 
 [node name="World Border" type="StaticBody2D" parent="."]
 position = Vector2(0, 324)
