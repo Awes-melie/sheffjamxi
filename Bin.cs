@@ -19,6 +19,8 @@ public partial class Bin : Area2D
        if(body is not Document document) return;
        if (!_documents.Contains(document)) return;
         _documents.Remove(document);
+        document.ConstantForce = new Vector2(0,0);
+
     }
     
     public override void _UnhandledInput(InputEvent eventArgs)
@@ -29,7 +31,7 @@ public partial class Bin : Area2D
 
             if (!_grabbing) {
                 foreach (Document document in _documents) {
-                    document.QueueFree();
+                    document.ConstantForce = new Vector2(50, 10000);
                 }
             }
         }

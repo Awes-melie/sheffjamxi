@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://1vmh5u4agbmb"]
+
+[ext_resource type="Script" uid="uid://ddwl7t5lapvuy" path="res://Submission.cs" id="1_inaa2"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_b28p3"]
+normal = Vector2(0, 1)
+
+[node name="Submission" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_inaa2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("WorldBoundaryShape2D_b28p3")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -24.0
+offset_top = 23.0
+offset_right = 26.0
+offset_bottom = 98.0
+text = "Î
+Paper,
+Please"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
