@@ -38,7 +38,7 @@ public partial class Document : RigidBody2D
 	{
 		if (eventArgs is InputEventMouseButton mouseEvents)
 		{
-			_grabbing = mouseEvents.Pressed;
+			_grabbing = mouseEvents.Pressed && mouseEvents.ButtonIndex == MouseButton.Left;
 			
 			if (!_mouseOver) return;
 
