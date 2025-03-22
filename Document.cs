@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 public partial class Document : RigidBody2D
 {
@@ -52,21 +53,40 @@ public partial class Document : RigidBody2D
 			Translate(deltaMovement);   
 		}
 	}
-
-	public void ScaleDown(float currScale) {
-		var newScale = new Vector2(1, currScale);
-		_polygon2D.ApplyScale(newScale);
-		_collisionPolygon2D.ApplyScale(newScale);
+	public void SetShape(Vector2[] polygon) {
+		_polygon2D.Polygon = polygon;
+		_collisionPolygon2D.Polygon = polygon;
 	}
 
-	public void Slice()
-	{
-		var instance = _documentScene.Instantiate<Document>();
+
+	// public void ScaleDown(float currScale) {
+	// 	var newScale = new Vector2(1, currScale);
+	// 	_polygon2D.ApplyScale(newScale);
+	// 	_collisionPolygon2D.ApplyScale(newScale);
+	// }
+
+	// public void Slice()
+	// {
+	// 	var instance = _documentScene.Instantiate<Document>();
 		
+	// 	GetParent().AddChild(instance);
+
+	// 	ScaleDown(0.5f);
+
+	// 	instance.ScaleDown(_polygon2D.Scale.Y);
+	// }
+	public void Slice(Vector2[] sliceLine) 
+	{
+		var globalPolygon = _polygon2D.Polygon.Select(ToGlobal).ToArray();
+		var polygons = Geometry2D.ClipPolygons(globalPolygon, sliceLine);
+
+		GD.Print(polygons);
+
+		var instance = _documentScene.Instantiate<Document>();
 		GetParent().AddChild(instance);
 
-		ScaleDown(0.5f);
-
-		instance.ScaleDown(_polygon2D.Scale.Y);
+		instance.SetShape(polygons[0]);
+		SetShape(polygons[1]);
+		
 	}
 }
