@@ -95,6 +95,20 @@ public partial class Document : RigidBody2D
 		SetShape(polygons[0].Select(ToLocal).ToArray());
 	}
 
+    public void ApplyTextures(IEnumerable<Image> textures)
+    {
+		var combinedTexture = textures.Aggregate((imgA, imgB) =>
+		{
+			var temp = imgA.GetRegion(imgA.GetUsedRect());
+			temp.BlitRect(imgB, imgB.GetUsedRect(), Vector2I.Zero);
+			return temp;
+		});
+
+		var baseImage = GetChild<Polygon2D>(-1).Texture.GetImage();
+		baseImage.BlitRect(combinedTexture, combinedTexture.GetUsedRect(), Vector2I.Zero);
+		GetChild<Polygon2D>(-1).Texture = ImageTexture.CreateFromImage(baseImage);
+    }
+
     public Dictionary<string,FieldState> StateIndex { get; } = new Dictionary<string, FieldState>()
     {
         {"test", new FieldState() {FilledType = FilledType.UNFILLED}}

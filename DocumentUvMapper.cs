@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class DocumentUvMapper
 {
@@ -65,6 +66,10 @@ public class DocumentUvMapper
         {
             _appliedTextures.Add(index);
         }
+
+        var textures = _appliedTextures.Select(x => _textureIndex[x]);
+
+        document.ApplyTextures(textures);
     }
 
     private Texture _clickRegions = ResourceLoader.Load<Texture>("res://ClickAreaIndex.png");
@@ -76,9 +81,9 @@ public class DocumentUvMapper
 
     private Dictionary<string,Action<DocumentClickEvent>> _actionIndex;
 
-    private Dictionary<string,Texture> _textureIndex = new Dictionary<string, Texture>()
+    private Dictionary<string,Image> _textureIndex = new Dictionary<string, Image>()
     {
-        {$"test{nameof(FilledType.PEN)}", ResourceLoader.Load<Texture>("res://TextOverlaySprites/TestOverlay.png")}
+        {$"test{nameof(FilledType.PEN)}", ResourceLoader.Load<Image>("res://TextOverlaySprites/TestOverlay.png")}
     };
 
     private List<string> _appliedTextures = [];
