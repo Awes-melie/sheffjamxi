@@ -9,6 +9,7 @@ public partial class Document : RigidBody2D
 {
 	[Export]
 	public float MovementScalar{get; set;}
+	public Polygon2D Polygon2D { get; private set; }
 
 	private PackedScene _documentScene = ResourceLoader.Load<PackedScene>("res://Document.tscn");
 
@@ -16,7 +17,6 @@ public partial class Document : RigidBody2D
 	private bool _mouseOver;
 	private bool _grabbing;
 
-	private Polygon2D _polygon2D;
 	private Polygon2D _shadowPolygon2D;
 	private CollisionPolygon2D _collisionPolygon2D;
     private Image _baseImage;
@@ -24,12 +24,14 @@ public partial class Document : RigidBody2D
 
     public override void _Ready()
     {
-        _polygon2D = GetChild<Polygon2D>(2);
+        Polygon2D = GetChild<Polygon2D>(2);
 		_shadowPolygon2D = GetChild<Polygon2D>(1);
 		_collisionPolygon2D = GetChild<CollisionPolygon2D>(0);
 
-		_baseImage = GetChild<Polygon2D>(-1).Texture.GetImage();
+		_baseImage = Polygon2D.Texture.GetImage();
 		_baseImage.Convert(Image.Format.Rgba8);
+		
+		GD.Print(DocumentEvaluator.SizeDocument(this));
     }
 
     public override void _PhysicsProcess(double delta)
@@ -86,16 +88,16 @@ public partial class Document : RigidBody2D
 		}
 	}
 	public void SetShape(Vector2[] polygon) {
-		_polygon2D.Polygon = polygon;
+		Polygon2D.Polygon = polygon;
 		_shadowPolygon2D.Polygon = polygon;
-		_polygon2D.UV = polygon;
+		Polygon2D.UV = polygon;
 		_collisionPolygon2D.Polygon = polygon;
 	}
 
 	public void Slice(Vector2[] sliceLine) 
 	{
 
-		var globalPolygon = _polygon2D.Polygon.Select(ToGlobal).ToArray();
+		var globalPolygon = Polygon2D.Polygon.Select(ToGlobal).ToArray();
 		var polygons = Geometry2D.ClipPolygons(globalPolygon, sliceLine);
 
 		GD.Print(polygons);
@@ -111,25 +113,31 @@ public partial class Document : RigidBody2D
 			instance.SetShape(polygons[i].Select(ToLocal).ToArray());
 		}
 
+		GD.Print(DocumentEvaluator.SizeDocument(this));
 		SetShape(polygons[0].Select(ToLocal).ToArray());
 	}
 
     public void ApplyTextures()
     {
-		var combinedTexture = StateIndex
-			.Select(x => x.Value.CurrentTexture.GetImage())
-			.Aggregate((imgA, imgB) =>
-				{
-					var temp = imgA.GetRegion(imgA.GetUsedRect());
-					temp.BlendRect(imgB, new Rect2I(0,0,imgB.GetWidth(),imgB.GetHeight()), Vector2I.Zero);
-					return temp;
+		
+		var textures = StateIndex
+			.Select(x =>x.Value.CurrentTexture?.GetImage())
+			.Where(x => x != null);
+
+		if (textures.Count() == 0) return;
+
+		var combinedTexture = textures.Aggregate((imgA, imgB) =>
+		{
+			var temp = imgA.GetRegion(imgA.GetUsedRect());
+			temp.BlendRect(imgB, new Rect2I(0,0,imgB.GetWidth(),imgB.GetHeight()), Vector2I.Zero);
+			return temp;
 		});
 
 		var newImage = _baseImage.GetRegion(_baseImage.GetUsedRect());
 	
 		newImage.BlendRect(combinedTexture, 
 			new Rect2I(0,0,combinedTexture.GetWidth(),combinedTexture.GetHeight()), Vector2I.Zero);
-		GetChild<Polygon2D>(-1).Texture = ImageTexture.CreateFromImage(newImage);
+		Polygon2D.Texture = ImageTexture.CreateFromImage(newImage);
     }
 
     public Dictionary<string,FieldState> StateIndex { get; set; } = new Dictionary<string, FieldState>()
