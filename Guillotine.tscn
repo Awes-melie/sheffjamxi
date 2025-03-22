@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://coqoaq664xeyf"]
+
+[ext_resource type="Script" uid="uid://csk62a5ft3bry" path="res://Guillotine.cs" id="1_abgre"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uxrcv"]
+size = Vector2(144, 20)
+
+[node name="Guillotine" type="Area2D"]
+script = ExtResource("1_abgre")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_uxrcv")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-72, 9, -72, 8, 72, 9, 72, 8)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
