@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 
@@ -71,15 +72,16 @@ public partial class Document : RigidBody2D
 
 	public void Slice(Vector2[] sliceLine) 
 	{
+
 		var globalPolygon = _polygon2D.Polygon.Select(ToGlobal).ToArray();
 		var polygons = Geometry2D.ClipPolygons(globalPolygon, sliceLine);
-
+		
 		GD.Print(polygons);
-		SetShape(polygons[0]);
+		SetShape(polygons[0].Select(ToLocal).ToArray());
 		for (int i = 1; i < polygons.Count; i++) {
 			var instance = _documentScene.Instantiate<Document>();
 			GetParent().AddChild(instance);
-		
+
 			instance.SetShape(polygons[i]);
 		}
 		
