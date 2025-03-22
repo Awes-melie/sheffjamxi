@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://d50fx4lsw8yf"]
+
+[ext_resource type="FontFile" uid="uid://c8dgvsbv5flbn" path="res://Main menu/04B_03__.TTF" id="1_quufh"]
+
+[resource]
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+RichTextLabel/font_sizes/normal_font_size = 50
+RichTextLabel/fonts/normal_font = ExtResource("1_quufh")
