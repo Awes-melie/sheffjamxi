@@ -54,12 +54,15 @@ public partial class Document : RigidBody2D
 
 			if (toolType != ToolType.HAND) 
 			{
-				new DocumentClickEvent(toolType, (_mouseGrabbedPosition + new Vector2(128, 192))*2.5f );
+				var documentClickEvent = new DocumentClickEvent(toolType, (Vector2I)((_mouseGrabbedPosition + new Vector2(128, 192))*2.5f) , this);
 				GD.Print("pre " , _mouseGrabbedPosition + new Vector2(128, 192));
 				GD.Print("post " , (_mouseGrabbedPosition + new Vector2(128, 192))*2.5f);
 
+
+				DocumentUvMapper.Instance.ClickDocument(documentClickEvent);
+
 				return;
-			} // send to UV Handler
+			}
 
 			if (_pin != null) return;
 
