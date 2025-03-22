@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dk8ehwp7qq357"]
+
+[ext_resource type="PackedScene" uid="uid://b5q4y3ytkyeyt" path="res://Document.tscn" id="1_x4av3"]
+[ext_resource type="Script" uid="uid://csk62a5ft3bry" path="res://Guillotine.cs" id="2_rpqi1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uxrcv"]
+size = Vector2(144, 20)
+
+[node name="MainScene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Document" parent="." instance=ExtResource("1_x4av3")]
+position = Vector2(64, 32)
+
+[node name="Guillotine" type="Area2D" parent="."]
+position = Vector2(64, -88)
+script = ExtResource("2_rpqi1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Guillotine"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_uxrcv")
+
+[connection signal="body_entered" from="Guillotine" to="Guillotine" method="_on_body_entered"]
+[connection signal="body_exited" from="Guillotine" to="Guillotine" method="_on_body_exited"]
