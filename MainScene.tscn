@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk8ehwp7qq357"]
+[gd_scene load_steps=4 format=3 uid="uid://dk8ehwp7qq357"]
 
 [ext_resource type="PackedScene" uid="uid://b5q4y3ytkyeyt" path="res://Document.tscn" id="1_x4av3"]
 [ext_resource type="PackedScene" uid="uid://coqoaq664xeyf" path="res://Guillotine.tscn" id="2_x4av3"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_x4av3"]
 
 [node name="MainScene" type="Node2D"]
 
@@ -12,3 +14,38 @@ position = Vector2(64, 32)
 
 [node name="Guillotine" parent="." instance=ExtResource("2_x4av3")]
 position = Vector2(64, -88)
+
+[node name="World Border" type="StaticBody2D" parent="."]
+position = Vector2(0, 324)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World Border"]
+shape = SubResource("WorldBoundaryShape2D_x4av3")
+
+[node name="World Border2" type="StaticBody2D" parent="."]
+position = Vector2(576, 0)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World Border2"]
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_x4av3")
+
+[node name="World Border3" type="StaticBody2D" parent="."]
+position = Vector2(-576, 0)
+rotation = 1.5708
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World Border3"]
+shape = SubResource("WorldBoundaryShape2D_x4av3")
+
+[node name="World Border4" type="StaticBody2D" parent="."]
+position = Vector2(0, -324)
+rotation = 3.14159
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World Border4"]
+shape = SubResource("WorldBoundaryShape2D_x4av3")
