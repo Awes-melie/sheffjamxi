@@ -19,14 +19,17 @@ public partial class Document : RigidBody2D
 	private Polygon2D _polygon2D;
 	private Polygon2D _shadowPolygon2D;
 	private CollisionPolygon2D _collisionPolygon2D;
-
-	private PinJoint2D _pin;
+    private Image _baseImage;
+    private PinJoint2D _pin;
 
     public override void _Ready()
     {
         _polygon2D = GetChild<Polygon2D>(2);
 		_shadowPolygon2D = GetChild<Polygon2D>(1);
 		_collisionPolygon2D = GetChild<CollisionPolygon2D>(0);
+
+		_baseImage = GetChild<Polygon2D>(-1).Texture.GetImage();
+		_baseImage.Convert(Image.Format.Rgba8);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -118,11 +121,11 @@ public partial class Document : RigidBody2D
 			return temp;
 		});
 
-		var baseImage = GetChild<Polygon2D>(-1).Texture.GetImage();
-		baseImage.Convert(Image.Format.Rgba8);
-		baseImage.BlendRect(combinedTexture, 
+		var newImage = _baseImage.GetRegion(_baseImage.GetUsedRect());
+	
+		newImage.BlendRect(combinedTexture, 
 			new Rect2I(0,0,combinedTexture.GetWidth(),combinedTexture.GetHeight()), Vector2I.Zero);
-		GetChild<Polygon2D>(-1).Texture = ImageTexture.CreateFromImage(baseImage);
+		GetChild<Polygon2D>(-1).Texture = ImageTexture.CreateFromImage(newImage);
     }
 
     public Dictionary<string,FieldState> StateIndex { get; } = new Dictionary<string, FieldState>()
