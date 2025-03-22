@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckl5ttil33d21"]
+
+[ext_resource type="Script" uid="uid://dyr3ojxk0pmte" path="res://Bin.cs" id="1_bawqm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vg1ep"]
+size = Vector2(192, 240)
+
+[node name="Bin" type="Area2D"]
+script = ExtResource("1_bawqm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -56)
+shape = SubResource("RectangleShape2D_vg1ep")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 0, 0.219608, 0.784314)
+polygon = PackedVector2Array(-96, -176, 96, -176, 96, 64, -96, 64)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
