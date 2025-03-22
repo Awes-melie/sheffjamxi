@@ -17,6 +17,8 @@ public partial class Document : RigidBody2D
 	private Polygon2D _polygon2D;
 	private CollisionPolygon2D _collisionPolygon2D;
 
+	private PinJoint2D _pin;
+
     public override void _Ready()
     {
         _polygon2D = GetChild<Polygon2D>(1);
@@ -43,14 +45,27 @@ public partial class Document : RigidBody2D
 
 			var mousePos = GetGlobalMousePosition();
 			_mouseGrabbedPosition = ToLocal(mousePos);
+
+			if (_pin != null) return;
+
+			_pin = new PinJoint2D();
+			_pin.Position = _mouseGrabbedPosition;
+			_pin.NodeB = GetPath();
+			_pin.NodeA = GetParent().GetChild<StaticBody2D>(0).GetPath();
+			AddChild(_pin);
 		} 
 		else if (eventArgs is InputEventMouseMotion)
 		{
-			if(! _grabbing) return;
 
-			var mousePos = GetGlobalMousePosition();
-			var deltaMovement = ToLocal(mousePos) - _mouseGrabbedPosition;
-			Translate(deltaMovement);   
+			if(_grabbing) return;
+
+			if (_pin == null) return;
+			_pin.QueueFree();
+			_pin = null;
+
+			// var mousePos = GetGlobalMousePosition();
+			// var deltaMovement = ToLocal(mousePos) - _mouseGrabbedPosition;
+			// Translate(deltaMovement);   
 		}
 	}
 	public void SetShape(Vector2[] polygon) {
