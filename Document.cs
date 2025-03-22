@@ -119,6 +119,7 @@ public partial class Document : RigidBody2D
 		});
 
 		var baseImage = GetChild<Polygon2D>(-1).Texture.GetImage();
+		baseImage.Convert(Image.Format.Rgba8);
 		baseImage.BlendRect(combinedTexture, 
 			new Rect2I(0,0,combinedTexture.GetWidth(),combinedTexture.GetHeight()), Vector2I.Zero);
 		GetChild<Polygon2D>(-1).Texture = ImageTexture.CreateFromImage(baseImage);
