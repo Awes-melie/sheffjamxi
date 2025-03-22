@@ -67,6 +67,7 @@ public partial class Document : RigidBody2D
 	}
 	public void SetShape(Vector2[] polygon) {
 		_polygon2D.Polygon = polygon;
+		_polygon2D.UV = polygon;
 		_collisionPolygon2D.Polygon = polygon;
 	}
 
@@ -75,15 +76,19 @@ public partial class Document : RigidBody2D
 
 		var globalPolygon = _polygon2D.Polygon.Select(ToGlobal).ToArray();
 		var polygons = Geometry2D.ClipPolygons(globalPolygon, sliceLine);
-		
+
 		GD.Print(polygons);
-		SetShape(polygons[0].Select(ToLocal).ToArray());
 		for (int i = 1; i < polygons.Count; i++) {
 			var instance = _documentScene.Instantiate<Document>();
 			GetParent().AddChild(instance);
 
-			instance.SetShape(polygons[i]);
+			instance.Position = Position;
+			instance.Rotation = Rotation;
+
+			instance.SetShape(polygons[i].Select(ToLocal).ToArray());
 		}
+
+		SetShape(polygons[0].Select(ToLocal).ToArray());
 		
 		
 		
