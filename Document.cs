@@ -49,12 +49,23 @@ public partial class Document : RigidBody2D
 			var mousePos = GetGlobalMousePosition();
 			_mouseGrabbedPosition = ToLocal(mousePos);
 
+			var toolType = Hand.Instance.toolType;
+
+			if (toolType != ToolType.HAND) 
+			{
+				new DocumentClickEvent(toolType, (_mouseGrabbedPosition + new Vector2(128, 192))*2.5f );
+				GD.Print("pre " , _mouseGrabbedPosition + new Vector2(128, 192));
+				GD.Print("post " , (_mouseGrabbedPosition + new Vector2(128, 192))*2.5f);
+
+				return;
+			} // send to UV Handler
+
 			if (_pin != null) return;
 
 			_pin = new PinJoint2D();
 			_pin.Position = _mouseGrabbedPosition;
 			_pin.NodeB = GetPath();
-			_pin.NodeA = GetParent().GetChild<StaticBody2D>(0).GetPath();
+			_pin.NodeA = Hand.Instance.GetPath();
 			AddChild(_pin);
 		} 
 		else if (eventArgs is InputEventMouseMotion)
