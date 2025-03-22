@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvcuvev2g7r1e"]
+
+[ext_resource type="Texture2D" uid="uid://ccaeb03mxqa8p" path="res://Main menu/logo.png" id="1_u0hc6"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_u0hc6"]
+specular_color = Color(0.504997, 0.997111, 0.9125, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = 83.0
+offset_top = -142.0
+offset_right = 1083.0
+offset_bottom = 858.0
+texture = ExtResource("1_u0hc6")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+visible = false
+z_index = -1
+layout_mode = 0
+offset_left = 5.0
+offset_top = -4.0
+offset_right = 1152.0
+offset_bottom = 631.0
+texture = SubResource("CanvasTexture_u0hc6")
