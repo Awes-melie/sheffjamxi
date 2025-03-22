@@ -1,11 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5q4y3ytkyeyt"]
+[gd_scene load_steps=3 format=3 uid="uid://b5q4y3ytkyeyt"]
 
 [ext_resource type="Script" uid="uid://b4fb6qgs7en5b" path="res://Document.cs" id="1_yks5t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1305s"]
-size = Vector2(128, 128)
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3mqji"]
+size = Vector2(128, 192)
 
 [node name="Document" type="RigidBody2D"]
 collision_mask = 0
@@ -17,10 +15,8 @@ MovementScalar = 10.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1305s")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(2.27374e-13, -2.27374e-13)
-scale = Vector2(0.25, 0.25)
-texture = SubResource("NoiseTexture2D_3mqji")
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-64, -96, 64, -96, 64, 96, -64, 96)
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
