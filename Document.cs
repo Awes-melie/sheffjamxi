@@ -14,12 +14,12 @@ public partial class Document : RigidBody2D
 	private bool _grabbing;
 
 	private Polygon2D _polygon2D;
-	private CollisionShape2D _collisionShape2D;
+	private CollisionPolygon2D _collisionPolygon2D;
 
     public override void _Ready()
     {
         _polygon2D = GetChild<Polygon2D>(1);
-		_collisionShape2D = GetChild<CollisionShape2D>(0);
+		_collisionPolygon2D = GetChild<CollisionPolygon2D>(0);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -56,7 +56,7 @@ public partial class Document : RigidBody2D
 	public void ScaleDown(float currScale) {
 		var newScale = new Vector2(1, currScale);
 		_polygon2D.ApplyScale(newScale);
-		_collisionShape2D.ApplyScale(newScale);
+		_collisionPolygon2D.ApplyScale(newScale);
 	}
 
 	public void Slice()
