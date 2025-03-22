@@ -29,9 +29,12 @@ public class DocumentUvMapper
 
     public void DefaultClickBehaviour(string index, DocumentClickEvent clickEvent)
     {
-        if(!clickEvent.Document.StateIndex.ContainsKey(index)) return;
+        var document = clickEvent.Document;
+        var stateIndex = document.StateIndex;
 
-        var currentState = clickEvent.Document.StateIndex[index].FilledType;
+        if(!stateIndex.ContainsKey(index)) return;
+
+        var currentState = stateIndex[index].FilledType;
         
         if (currentState == FilledType.PEN) return; // Can't overwrite pen
 
@@ -41,40 +44,30 @@ public class DocumentUvMapper
         {
             if(toolUsed == ToolType.PEN)
             {
-                clickEvent.Document.StateIndex[index].FilledType = FilledType.PEN;
+                stateIndex[index].FilledType = FilledType.PEN;
             } 
             else if (toolUsed == ToolType.PENCIL)
             {
-                clickEvent.Document.StateIndex[index].FilledType = FilledType.PENCIL;
+                stateIndex[index].FilledType = FilledType.PENCIL;
             }
         }
         if (currentState == FilledType.PENCIL)
         {
             if(toolUsed == ToolType.PEN)
             {
-                clickEvent.Document.StateIndex[index].FilledType = FilledType.PEN;
+                stateIndex[index].FilledType = FilledType.PEN;
             } 
             else if (toolUsed == ToolType.RUBBER)
             {
-                clickEvent.Document.StateIndex[index].FilledType = FilledType.UNFILLED;
+                stateIndex[index].FilledType = FilledType.UNFILLED;
             }
         }
-        if (currentState != clickEvent.Document.StateIndex[index].FilledType)
+        if (currentState != stateIndex[index].FilledType)
         {
-            UpdateTexture(index + Enum.GetName(clickEvent.Document.StateIndex[index].FilledType), clickEvent.Document);
+            stateIndex[index].CurrentTexture = _textureIndex[index + Enum.GetName(stateIndex[index].FilledType)];
+
+            document.ApplyTextures();
         }
-    }
-
-    private void UpdateTexture(string index, Document document)
-    {
-        if (!_appliedTextures.Remove(index))
-        {
-            _appliedTextures.Add(index);
-        }
-
-        var textures = _appliedTextures.Select(x => _textureIndex[x].GetImage());
-
-        document.ApplyTextures(textures);
     }
 
     private Image _clickRegions = ResourceLoader.Load<Texture2D>("res://ClickAreaIndex.png").GetImage();
@@ -90,6 +83,4 @@ public class DocumentUvMapper
     {
         {$"test{nameof(FilledType.PEN)}", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/TestOverlay.png")}
     };
-
-    private List<string> _appliedTextures = [];
 }
