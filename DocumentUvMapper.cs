@@ -16,16 +16,21 @@ public class DocumentUvMapper
 
     public void ClickDocument(DocumentClickEvent clickEvent)
     {
-        // Get UV Position
-        // Get colour 
-        var colour = new Color(0,0,0);
-        var index = _colourIndex[colour];
+        var colour = _clickRegions.GetPixel(clickEvent.TextureCoordinates.X, clickEvent.TextureCoordinates.Y);
+
+        if(colour == new Color(1,1,1)) return; // If white (background, ignore)
+
+        var index = _colourIndex.GetValueOrDefault(colour);
+
+        if(index == null) return;
 
         _actionIndex[index].Invoke(clickEvent); // Do click action
     }
 
     public void DefaultClickBehaviour(string index, DocumentClickEvent clickEvent)
     {
+        if(!clickEvent.Document.StateIndex.ContainsKey(index)) return;
+
         var currentState = clickEvent.Document.StateIndex[index].FilledType;
         
         if (currentState == FilledType.PEN) return; // Can't overwrite pen
@@ -72,7 +77,7 @@ public class DocumentUvMapper
         document.ApplyTextures(textures);
     }
 
-    private Texture _clickRegions = ResourceLoader.Load<Texture>("res://ClickAreaIndex.png");
+    private Image _clickRegions = ResourceLoader.Load<Texture2D>("res://ClickAreaIndex.png").GetImage();
 
     private Dictionary<Color,string> _colourIndex = new Dictionary<Color, string>
     {

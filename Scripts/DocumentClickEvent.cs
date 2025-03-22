@@ -1,3 +1,3 @@
 using Godot;
 
-public record DocumentClickEvent(ToolType ToolType, Vector2 TextureCoordinates, Document Document);
+public record DocumentClickEvent(ToolType ToolType, Vector2I TextureCoordinates, Document Document);
