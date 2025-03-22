@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Principal;
 
 public partial class Document : RigidBody2D
 {
@@ -16,7 +17,7 @@ public partial class Document : RigidBody2D
 	private Vector2 _mouseGrabbedPosition;
 	private bool _mouseOver;
 	private bool _grabbing;
-
+	private Line2D _line;
 	private Polygon2D _shadowPolygon2D;
 	private CollisionPolygon2D _collisionPolygon2D;
     private Image _baseImage;
@@ -25,13 +26,14 @@ public partial class Document : RigidBody2D
     public override void _Ready()
     {
         Polygon2D = GetChild<Polygon2D>(2);
+		Polygon2D.ClipChildren = ClipChildrenMode.AndDraw;
 		_shadowPolygon2D = GetChild<Polygon2D>(1);
 		_collisionPolygon2D = GetChild<CollisionPolygon2D>(0);
 
 		_baseImage = Polygon2D.Texture.GetImage();
 		_baseImage.Convert(Image.Format.Rgba8);
 		
-		GD.Print(DocumentEvaluator.SizeDocument(this));
+		//GD.Print(DocumentEvaluator.SizeDocument(this));
     }
 
     public override void _PhysicsProcess(double delta)
@@ -59,15 +61,27 @@ public partial class Document : RigidBody2D
 
 			if (toolType != ToolType.HAND) 
 			{
-				var documentClickEvent = new DocumentClickEvent(toolType, (Vector2I)((_mouseGrabbedPosition + new Vector2(128, 192))*2.5f) , this);
-				GD.Print("pre " , _mouseGrabbedPosition + new Vector2(128, 192));
-				GD.Print("post " , (_mouseGrabbedPosition + new Vector2(128, 192))*2.5f);
+				// var documentClickEvent = new DocumentClickEvent(toolType, (Vector2I)((_mouseGrabbedPosition + new Vector2(128, 192))*2.5f) , this);
+				// GD.Print("pre " , _mouseGrabbedPosition + new Vector2(128, 192));
+				// GD.Print("post " , (_mouseGrabbedPosition + new Vector2(128, 192))*2.5f);
 
 
-				DocumentUvMapper.Instance.ClickDocument(documentClickEvent);
+				// DocumentUvMapper.Instance.ClickDocument(documentClickEvent);
+
+				
+
+				_line = new Line2D();
+				_line.Width = 2;
+				Polygon2D.AddChild(_line);
+
+				if (toolType == ToolType.PEN) {_line.DefaultColor = Colors.Black;}
+				if (toolType == ToolType.PENCIL) {_line.DefaultColor = Colors.Gray;}
+						
 
 				return;
-			}
+				}
+				
+
 
 			if (_pin != null) return;
 
@@ -80,7 +94,16 @@ public partial class Document : RigidBody2D
 		else if (eventArgs is InputEventMouseMotion)
 		{
 
-			if(_grabbing) return;
+			if(_grabbing && _line != null) {
+				var mousePos = GetGlobalMousePosition();
+				_mouseGrabbedPosition = ToLocal(mousePos);
+				_line.Points = _line.Points.Append(_mouseGrabbedPosition).ToArray(); 
+				return;
+			}
+
+			_line = new Line2D();
+
+
 
 			if (_pin == null) return;
 			_pin.QueueFree();
@@ -110,10 +133,16 @@ public partial class Document : RigidBody2D
 			instance.StateIndex = StateIndex.ToDictionary(e => e.Key, e => e.Value.Clone());
 			instance.ApplyTextures();
 
+			foreach (Node child in Polygon2D.GetChildren()) {
+				var duplicateChild = child.Duplicate();
+				instance.Polygon2D.AddChild(duplicateChild);
+			}
+
 			instance.SetShape(polygons[i].Select(ToLocal).ToArray());
+
 		}
 
-		GD.Print(DocumentEvaluator.SizeDocument(this));
+		//GD.Print(DocumentEvaluator.SizeDocument(this));
 		SetShape(polygons[0].Select(ToLocal).ToArray());
 	}
 
