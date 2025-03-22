@@ -1,19 +1,22 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class Guillotine : Area2D
 {
-    private Document _document;
+    private List<Document> _documents = new List<Document>();
     public void _on_body_entered(Node2D body)
     {
         if(body is not Document document) return;
-        _document = document;
+        _documents.Add(document);
     }
     
     public void _on_body_exited(Node2D body)
     {
-        _document = null;
+       if(body is not Document document) return;
+       if (!_documents.Contains(document)) return;
+        _documents.Remove(document);
     }
 
 
@@ -24,7 +27,9 @@ public partial class Guillotine : Area2D
             if(inputKey.Keycode == Key.Enter && inputKey.Pressed)
             {
                 var globalPolygon = GetChild<Polygon2D>(1).Polygon.Select(ToGlobal).ToArray();
-                _document?.Slice(globalPolygon);
+                foreach (Document document in _documents) {
+                    document.Slice(globalPolygon);
+                }
             }
         }
     }
