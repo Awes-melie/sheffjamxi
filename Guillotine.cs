@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class Guillotine : Area2D
 {
@@ -15,13 +16,15 @@ public partial class Guillotine : Area2D
         _document = null;
     }
 
+
     public override void _UnhandledInput(InputEvent input)
     {
         if(input is InputEventKey inputKey)
         {
             if(inputKey.Keycode == Key.Enter && inputKey.Pressed)
             {
-                _document?.Slice();
+                var globalPolygon = GetChild<Polygon2D>(1).Polygon.Select(ToGlobal).ToArray();
+                _document?.Slice(globalPolygon);
             }
         }
     }
