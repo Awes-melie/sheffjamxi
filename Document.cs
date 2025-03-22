@@ -64,12 +64,15 @@ public partial class Document : RigidBody2D
 		var polygons = Geometry2D.ClipPolygons(globalPolygon, sliceLine);
 
 		GD.Print(polygons);
-
-		var instance = _documentScene.Instantiate<Document>();
-		GetParent().AddChild(instance);
-
-		instance.SetShape(polygons[0]);
-		SetShape(polygons[1]);
+		SetShape(polygons[0]);
+		for (int i = 1; i < polygons.Count; i++) {
+			var instance = _documentScene.Instantiate<Document>();
+			GetParent().AddChild(instance);
+		
+			instance.SetShape(polygons[i]);
+		}
+		
+		
 		
 	}
 }
