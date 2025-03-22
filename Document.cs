@@ -13,7 +13,16 @@ public partial class Document : RigidBody2D
 	private bool _mouseOver;
 	private bool _grabbing;
 
-	public override void _PhysicsProcess(double delta)
+	private Polygon2D _polygon2D;
+	private CollisionShape2D _collisionShape2D;
+
+    public override void _Ready()
+    {
+        _polygon2D = GetChild<Polygon2D>(1);
+		_collisionShape2D = GetChild<CollisionShape2D>(0);
+    }
+
+    public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
 	}
@@ -44,16 +53,20 @@ public partial class Document : RigidBody2D
 		}
 	}
 
+	public void ScaleDown(float currScale) {
+		var newScale = new Vector2(1, currScale);
+		_polygon2D.ApplyScale(newScale);
+		_collisionShape2D.ApplyScale(newScale);
+	}
+
 	public void Slice()
 	{
-		var instance = _documentScene.Instantiate();
-
-		var newScale = new Vector2(1, 0.5f);
+		var instance = _documentScene.Instantiate<Document>();
+		
 		GetParent().AddChild(instance);
-		
-		((Node2D)instance).Scale = Scale;
-		
-		((Node2D)instance).ApplyScale(newScale);
-		ApplyScale(newScale);
+
+		ScaleDown(0.5f);
+
+		instance.ScaleDown(_polygon2D.Scale.Y);
 	}
 }
