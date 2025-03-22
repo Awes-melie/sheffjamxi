@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dk8ehwp7qq357"]
+[gd_scene load_steps=9 format=3 uid="uid://dk8ehwp7qq357"]
 
 [ext_resource type="PackedScene" uid="uid://cbmwckjlr0jsd" path="res://Hand.tscn" id="1_rpqi1"]
 [ext_resource type="PackedScene" uid="uid://b5q4y3ytkyeyt" path="res://Document.tscn" id="1_x4av3"]
 [ext_resource type="PackedScene" uid="uid://coqoaq664xeyf" path="res://Guillotine.tscn" id="2_x4av3"]
+[ext_resource type="PackedScene" uid="uid://1vmh5u4agbmb" path="res://submission.tscn" id="3_hbc2u"]
 [ext_resource type="PackedScene" uid="uid://ckl5ttil33d21" path="res://bin.tscn" id="4_uxrcv"]
 [ext_resource type="ButtonGroup" uid="uid://cyj1e7ofxuu3l" path="res://pen pencil;.tres" id="5_5crlr"]
 [ext_resource type="Texture2D" uid="uid://ywnjc3x3pdku" path="res://pen.png" id="5_a814b"]
@@ -15,6 +16,9 @@ z_index = 7
 position = Vector2(23, -45)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Submission" parent="." instance=ExtResource("3_hbc2u")]
+position = Vector2(0, -324)
 
 [node name="Document" parent="." instance=ExtResource("1_x4av3")]
 position = Vector2(95, 24)
