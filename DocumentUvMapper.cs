@@ -67,7 +67,7 @@ public class DocumentUvMapper
             _appliedTextures.Add(index);
         }
 
-        var textures = _appliedTextures.Select(x => _textureIndex[x]);
+        var textures = _appliedTextures.Select(x => _textureIndex[x].GetImage());
 
         document.ApplyTextures(textures);
     }
@@ -81,9 +81,9 @@ public class DocumentUvMapper
 
     private Dictionary<string,Action<DocumentClickEvent>> _actionIndex;
 
-    private Dictionary<string,Image> _textureIndex = new Dictionary<string, Image>()
+    private Dictionary<string,Texture2D> _textureIndex = new Dictionary<string, Texture2D>()
     {
-        {$"test{nameof(FilledType.PEN)}", ResourceLoader.Load<Image>("res://TextOverlaySprites/TestOverlay.png")}
+        {$"test{nameof(FilledType.PEN)}", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/TestOverlay.png")}
     };
 
     private List<string> _appliedTextures = [];

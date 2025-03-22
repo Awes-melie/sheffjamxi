@@ -100,12 +100,13 @@ public partial class Document : RigidBody2D
 		var combinedTexture = textures.Aggregate((imgA, imgB) =>
 		{
 			var temp = imgA.GetRegion(imgA.GetUsedRect());
-			temp.BlitRect(imgB, imgB.GetUsedRect(), Vector2I.Zero);
+			temp.BlendRect(imgB, new Rect2I(0,0,imgB.GetWidth(),imgB.GetHeight()), Vector2I.Zero);
 			return temp;
 		});
 
 		var baseImage = GetChild<Polygon2D>(-1).Texture.GetImage();
-		baseImage.BlitRect(combinedTexture, combinedTexture.GetUsedRect(), Vector2I.Zero);
+		baseImage.BlendRect(combinedTexture, 
+			new Rect2I(0,0,combinedTexture.GetWidth(),combinedTexture.GetHeight()), Vector2I.Zero);
 		GetChild<Polygon2D>(-1).Texture = ImageTexture.CreateFromImage(baseImage);
     }
 
