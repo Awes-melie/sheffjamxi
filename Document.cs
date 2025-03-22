@@ -141,8 +141,6 @@ public partial class Document : RigidBody2D
 			instance.SetShape(polygons[i].Select(ToLocal).ToArray());
 
 		}
-
-		//GD.Print(DocumentEvaluator.SizeDocument(this));
 		SetShape(polygons[0].Select(ToLocal).ToArray());
 	}
 
