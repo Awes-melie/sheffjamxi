@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5q4y3ytkyeyt"]
+[gd_scene load_steps=3 format=3 uid="uid://b5q4y3ytkyeyt"]
 
 [ext_resource type="Script" uid="uid://b4fb6qgs7en5b" path="res://Document.cs" id="1_yks5t"]
+[ext_resource type="Texture2D" uid="uid://be8g1fjxfbcdy" path="res://Screenshot 2025-03-22 074956.png" id="2_jnxnq"]
 
 [node name="Document" type="RigidBody2D"]
 collision_mask = 2
@@ -15,7 +16,10 @@ MovementScalar = 10.0
 polygon = PackedVector2Array(-128, 192, -128, -192, 128, -192, 128, 192)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+texture = ExtResource("2_jnxnq")
+texture_scale = Vector2(2.5, 2.5)
 polygon = PackedVector2Array(-128, -192, 128, -192, 128, 192, -128, 192)
+uv = PackedVector2Array(0, 0, 300, 0, 300, 400, 0, 400)
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
