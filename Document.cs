@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
@@ -92,8 +93,11 @@ public partial class Document : RigidBody2D
 		}
 
 		SetShape(polygons[0].Select(ToLocal).ToArray());
-		
-		
-		
 	}
+
+    public Dictionary<string,FieldState> StateIndex { get; } = new Dictionary<string, FieldState>()
+    {
+        {"test", new FieldState() {FilledType = FilledType.UNFILLED}}
+    };
+
 }

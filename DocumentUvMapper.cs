@@ -25,39 +25,41 @@ public class DocumentUvMapper
 
     public void DefaultClickBehaviour(string index, DocumentClickEvent clickEvent)
     {
-        var currentState = _stateIndex[index].FilledType;
+        var currentState = clickEvent.Document.StateIndex[index].FilledType;
         
         if (currentState == FilledType.PEN) return; // Can't overwrite pen
 
+        var toolUsed = clickEvent.ToolType;
+
         if (currentState == FilledType.UNFILLED)
         {
-            var newState = clickEvent.ToolType;
-            if(newState == ToolType.PEN)
+            if(toolUsed == ToolType.PEN)
             {
-                _stateIndex[index].FilledType = FilledType.PEN;
-            } else if (newState == ToolType.PENCIL)
+                clickEvent.Document.StateIndex[index].FilledType = FilledType.PEN;
+            } 
+            else if (toolUsed == ToolType.PENCIL)
             {
-                _stateIndex[index].FilledType = FilledType.PENCIL;
+                clickEvent.Document.StateIndex[index].FilledType = FilledType.PENCIL;
             }
         }
         if (currentState == FilledType.PENCIL)
         {
-            var newState = clickEvent.ToolType;
-            if(newState == ToolType.PEN)
+            if(toolUsed == ToolType.PEN)
             {
-                _stateIndex[index].FilledType = FilledType.PEN;
-            } else if (newState == ToolType.RUBBER)
+                clickEvent.Document.StateIndex[index].FilledType = FilledType.PEN;
+            } 
+            else if (toolUsed == ToolType.RUBBER)
             {
-                _stateIndex[index].FilledType = FilledType.UNFILLED;
+                clickEvent.Document.StateIndex[index].FilledType = FilledType.UNFILLED;
             }
         }
-        if (currentState != _stateIndex[index].FilledType)
+        if (currentState != clickEvent.Document.StateIndex[index].FilledType)
         {
-            UpdateTexture(index + Enum.GetName(_stateIndex[index].FilledType));
+            UpdateTexture(index + Enum.GetName(clickEvent.Document.StateIndex[index].FilledType), clickEvent.Document);
         }
     }
 
-    private void UpdateTexture(string index)
+    private void UpdateTexture(string index, Document document)
     {
         if (!_appliedTextures.Remove(index))
         {
@@ -73,11 +75,6 @@ public class DocumentUvMapper
     };
 
     private Dictionary<string,Action<DocumentClickEvent>> _actionIndex;
-
-    private Dictionary<string,FieldState> _stateIndex = new Dictionary<string, FieldState>()
-    {
-        {"test", new FieldState() {FilledType = FilledType.UNFILLED}}
-    };
 
     private Dictionary<string,Texture> _textureIndex = new Dictionary<string, Texture>()
     {
