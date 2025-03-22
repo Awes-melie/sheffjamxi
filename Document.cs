@@ -58,23 +58,6 @@ public partial class Document : RigidBody2D
 		_collisionPolygon2D.Polygon = polygon;
 	}
 
-
-	// public void ScaleDown(float currScale) {
-	// 	var newScale = new Vector2(1, currScale);
-	// 	_polygon2D.ApplyScale(newScale);
-	// 	_collisionPolygon2D.ApplyScale(newScale);
-	// }
-
-	// public void Slice()
-	// {
-	// 	var instance = _documentScene.Instantiate<Document>();
-		
-	// 	GetParent().AddChild(instance);
-
-	// 	ScaleDown(0.5f);
-
-	// 	instance.ScaleDown(_polygon2D.Scale.Y);
-	// }
 	public void Slice(Vector2[] sliceLine) 
 	{
 		var globalPolygon = _polygon2D.Polygon.Select(ToGlobal).ToArray();
