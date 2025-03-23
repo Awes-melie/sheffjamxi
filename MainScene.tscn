@@ -22,7 +22,7 @@ position = Vector2(23, -45)
 position = Vector2(0, -724)
 
 [node name="Document" parent="." instance=ExtResource("1_x4av3")]
-position = Vector2(40, -1)
+position = Vector2(56, 16)
 
 [node name="Guillotine" parent="." instance=ExtResource("2_x4av3")]
 position = Vector2(-290, 1.99997)

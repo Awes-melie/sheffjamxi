@@ -25,7 +25,6 @@ public class DocumentUvMapper
     {
         var colour = _clickRegions.GetPixel(clickEvent.TextureCoordinates.X, clickEvent.TextureCoordinates.Y);
         
-        GD.Print($"{clickEvent.TextureCoordinates}, colour: {colour}");
 
         if(colour == new Color(1,1,1)) return; // If white (background, ignore)
 
