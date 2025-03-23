@@ -1,20 +1,41 @@
 [gd_scene load_steps=10 format=3 uid="uid://dk8ehwp7qq357"]
 
+[ext_resource type="Texture2D" uid="uid://bhvfjac56y6q7" path="res://background.png" id="1_8xkvn"]
 [ext_resource type="PackedScene" uid="uid://cbmwckjlr0jsd" path="res://Hand.tscn" id="1_rpqi1"]
 [ext_resource type="PackedScene" uid="uid://b5q4y3ytkyeyt" path="res://Document.tscn" id="1_x4av3"]
 [ext_resource type="PackedScene" uid="uid://coqoaq664xeyf" path="res://Guillotine.tscn" id="2_x4av3"]
 [ext_resource type="PackedScene" uid="uid://1vmh5u4agbmb" path="res://submission.tscn" id="3_hbc2u"]
 [ext_resource type="PackedScene" uid="uid://ckl5ttil33d21" path="res://bin.tscn" id="4_uxrcv"]
 [ext_resource type="ButtonGroup" uid="uid://cyj1e7ofxuu3l" path="res://pen pencil;.tres" id="5_5crlr"]
-[ext_resource type="Texture2D" uid="uid://ywnjc3x3pdku" path="res://pen.png" id="5_a814b"]
-[ext_resource type="Texture2D" uid="uid://b34c45gtbwwgn" path="res://pencil.png" id="6_5crlr"]
 [ext_resource type="Script" uid="uid://cpkkrub5c8m2t" path="res://DialogHandler.cs" id="8_hbc2u"]
+[ext_resource type="Texture2D" uid="uid://dgsy6hr6upv3b" path="res://guillotineTop.png" id="9_torvr"]
 
 [node name="MainScene" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(0, 24)
+scale = Vector2(6.4, 6.4)
+texture = ExtResource("1_8xkvn")
 
 [node name="Hand" parent="." instance=ExtResource("1_rpqi1")]
 z_index = 7
 position = Vector2(23, -45)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, 7.455)
+zoom = Vector2(1, 0.98)
+
+[node name="Submission" parent="." instance=ExtResource("3_hbc2u")]
+position = Vector2(0, -724)
+
+[node name="Document" parent="." instance=ExtResource("1_x4av3")]
+position = Vector2(56, 16)
+
+[node name="Guillotine" parent="." instance=ExtResource("2_x4av3")]
+position = Vector2(-290, 1.99997)
+
+[node name="Bin" parent="." instance=ExtResource("4_uxrcv")]
+position = Vector2(545, 656)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -22,54 +43,26 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Cutting Label" type="Label" parent="UI"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -14.4
-anchor_top = -8.2
-anchor_right = 14.4
-anchor_bottom = 8.0
-offset_left = 95.0
-offset_top = 243.0
-offset_right = -667.0
-offset_bottom = -330.0
-text = "Cut Paper Here
-vvvv
-"
-horizontal_alignment = 1
-
-[node name="Bin Label" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 523.0
-offset_top = 295.0
-offset_right = 580.0
-offset_bottom = 344.0
-text = "Bin
-v"
-horizontal_alignment = 1
-
 [node name="Pen" type="TextureButton" parent="UI"]
 layout_mode = 0
-offset_left = -632.0
-offset_top = -134.0
-offset_right = -502.0
-offset_bottom = -1.0
+offset_left = -640.0
+offset_top = -328.0
+offset_right = -360.0
+offset_bottom = -195.0
 focus_mode = 0
 toggle_mode = true
 button_group = ExtResource("5_5crlr")
-texture_normal = ExtResource("5_a814b")
 stretch_mode = 4
 
 [node name="Pencil" type="TextureButton" parent="UI"]
 layout_mode = 0
-offset_left = -632.0
-offset_top = -1.0
-offset_right = -502.0
-offset_bottom = 135.0
+offset_left = -640.0
+offset_top = -168.0
+offset_right = -352.0
+offset_bottom = -80.0
 focus_mode = 0
 toggle_mode = true
 button_group = ExtResource("5_5crlr")
-texture_normal = ExtResource("6_5crlr")
 stretch_mode = 0
 
 [node name="DialogController" type="BoxContainer" parent="UI"]
@@ -90,27 +83,18 @@ CharSpeed = 10
 
 [node name="Button" type="Button" parent="UI"]
 layout_mode = 0
-offset_left = 396.0
-offset_top = -10.0
-offset_right = 551.0
-offset_bottom = 21.0
+offset_left = 424.0
+offset_top = -264.0
+offset_right = 579.0
+offset_bottom = -233.0
 focus_mode = 0
 text = "Request New Form
 "
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="Submission" parent="." instance=ExtResource("3_hbc2u")]
-position = Vector2(0, -724)
-
-[node name="Guillotine" parent="." instance=ExtResource("2_x4av3")]
-position = Vector2(-290, 1.99997)
-
-[node name="Document" parent="." instance=ExtResource("1_x4av3")]
-position = Vector2(56, 16)
-
-[node name="Bin" parent="." instance=ExtResource("4_uxrcv")]
-position = Vector2(545, 656)
+[node name="GuillotineTop" type="Sprite2D" parent="."]
+position = Vector2(-3.8147e-06, 24)
+scale = Vector2(6.4, 6.4)
+texture = ExtResource("9_torvr")
 
 [connection signal="toggled" from="UI/Pen" to="Hand" method="_on_pen_toggled"]
 [connection signal="toggled" from="UI/Pencil" to="Hand" method="_on_pencil_toggled"]

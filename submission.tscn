@@ -17,16 +17,6 @@ script = ExtResource("1_inaa2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("WorldBoundaryShape2D_b28p3")
 
-[node name="Label" type="Label" parent="."]
-offset_left = -44.0
-offset_top = 414.0
-offset_right = 45.0
-offset_bottom = 489.0
-text = "Î
-Form
-Submission"
-horizontal_alignment = 1
-
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(0, -293)
 
