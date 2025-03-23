@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://1vmh5u4agbmb"]
+[gd_scene load_steps=4 format=3 uid="uid://1vmh5u4agbmb"]
 
 [ext_resource type="Script" uid="uid://ddwl7t5lapvuy" path="res://Submission.cs" id="1_inaa2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_b28p3"]
 normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_inaa2"]
+normal = Vector2(0, 1)
+distance = -199.0
 
 [node name="Submission" type="Area2D"]
 collision_layer = 3
@@ -15,13 +19,20 @@ shape = SubResource("WorldBoundaryShape2D_b28p3")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -44.0
-offset_top = 279.0
+offset_top = 465.0
 offset_right = 45.0
-offset_bottom = 354.0
+offset_bottom = 540.0
 text = "Î
 Form
 Submission"
 horizontal_alignment = 1
 
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -293)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("WorldBoundaryShape2D_inaa2")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_submission_entered"]
