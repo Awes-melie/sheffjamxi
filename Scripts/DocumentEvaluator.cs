@@ -89,8 +89,8 @@ public static class DocumentEvaluator
 
         // Rule 7
 
-        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckFieldHasDrawing("dashedLine", true), "We require a signature. Sign the dashed line, if you please", false),
-        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckFieldHasDrawing("dottedLine", false), "You have signed on the dotted line, when I clearly stated the dashed line. Start Over.", true),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckFieldHasDrawing("dottedLine", true), "We require a signature. Sign the dotted line, if you please", false),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckFieldHasDrawing("dashedLine", false), "You have signed on the dashed line, when I clearly stated the dotted line. Start Over.", true),
 
         // Rule 8
 
