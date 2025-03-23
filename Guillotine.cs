@@ -20,17 +20,10 @@ public partial class Guillotine : Area2D
     }
 
 
-    public override void _UnhandledInput(InputEvent input)
-    {
-        if(input is InputEventKey inputKey)
-        {
-            if(inputKey.Keycode == Key.Enter && inputKey.Pressed)
-            {
+    public void _on_pressed() {
                 var globalPolygon = GetChild<Polygon2D>(1).Polygon.Select(ToGlobal).ToArray();
                 foreach (Document document in _documents) {
                     document.Slice(globalPolygon);
                 }
             }
-        }
-    }
 }
