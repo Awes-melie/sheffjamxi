@@ -59,18 +59,9 @@ public partial class Document : RigidBody2D
 
 			if (toolType != ToolType.HAND) 
 			{
-<<<<<<< HEAD
-				// var documentClickEvent = new DocumentClickEvent(toolType, (Vector2I)((_mouseGrabbedPosition + new Vector2(128, 192))*2.5f) , this);
-				// GD.Print("pre " , _mouseGrabbedPosition + new Vector2(128, 192));
-				// GD.Print("post " , (_mouseGrabbedPosition + new Vector2(128, 192))*2.5f);
-
-=======
 				var documentClickEvent = new DocumentClickEvent(toolType, CoordinateUtilities.WorldToTexture(_mouseGrabbedPosition) , this);
->>>>>>> 306e8f4 (Colour area detection on evaluator)
 
-				// DocumentUvMapper.Instance.ClickDocument(documentClickEvent);
-
-				
+				DocumentUvMapper.Instance.ClickDocument(documentClickEvent);
 
 				_line = new Line2D();
 				_line.Width = 2;
@@ -82,7 +73,6 @@ public partial class Document : RigidBody2D
 
 				return;
 				}
-				
 
 
 			if (_pin != null) return;
@@ -144,11 +134,6 @@ public partial class Document : RigidBody2D
 
 		}
 		SetShape(polygons[0].Select(ToLocal).ToArray());
-<<<<<<< HEAD
-=======
-		
-		GD.Print(this.CheckHasFieldColour("test", true));
->>>>>>> 306e8f4 (Colour area detection on evaluator)
 	}
 
     public void ApplyTextures()
