@@ -5,7 +5,7 @@ using System.Linq;
 
 public static class DocumentEvaluator
 {
-    public static float ValidFieldColourProportion { get; set; } = 0.95f;
+    public static float ValidFieldColourProportion { get; set; } = 0.90f;
 
     private static Dictionary<Color,List<Vector2I>> _pixelMap = InitialisePixelArray();
     private static Dictionary<Vector2I,Color> _colourMap;
@@ -58,7 +58,10 @@ public static class DocumentEvaluator
 
         new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("7c", FilledType.PEN), "Please check tick box 7c of section 3s", false),
 
-
+        
+        // This need functionality behind it
+        //new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("Aliases", FilledType.PEN), "We do not associate with criminals. Please start again.", true),
+        
         // Rule 2
 
         new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("email",FilledType.UNFILLED), "Do not fill in the asterix'd fields, Please! Start Over.", true),

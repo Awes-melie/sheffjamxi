@@ -18,6 +18,7 @@ public class DocumentUvMapper
             {"7c", clickEvent => DefaultClickBehaviour("7c",clickEvent)},
             {"compliments", clickEvent => DefaultClickBehaviour("compliments",clickEvent)},
             {"complaints", clickEvent => DefaultClickBehaviour("complaints",clickEvent)},
+            //{"aliases", clickEvent => DefaultClickBehaviour("aliases",clickEvent)},
         };
     }
 
@@ -71,6 +72,7 @@ public class DocumentUvMapper
         new Tuple<Color, string>(new Color(78/255f, 68/255f, 32/255f, 1) ,"19.2"),
         new Tuple<Color, string>(new Color(56/255f, 251/255f, 205/255f, 1),"compliments"),
         new Tuple<Color, string>(new Color(120/255f, 235/255f, 215/255f, 1),"complaints"),
+        //new Tuple<Color, string>(new Color(120/255f, 235/255f, 215/255f, 1),"aliases"),
     };
 
     private Dictionary<string,Action<DocumentClickEvent>> _actionIndex;
@@ -85,5 +87,6 @@ public class DocumentUvMapper
         {"7c", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/7c.png")},
         {"compliments", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/compliments.png")},
         {"complaints", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/complaints.png")},
+        //{"aliases", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/aliases.png")},
     };
 }
