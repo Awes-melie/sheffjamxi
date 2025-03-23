@@ -61,7 +61,7 @@ public partial class Document : RigidBody2D
 			{
 				if (toolType == ToolType.PEN) 
 				{
-					var documentClickEvent = new DocumentClickEvent(toolType, CoordinateUtilities.WorldToTexture(_mouseGrabbedPosition) , this);
+					var documentClickEvent = new DocumentClickEvent(CoordinateUtilities.WorldToTexture(_mouseGrabbedPosition) , this);
 
 					DocumentUvMapper.Instance.ClickDocument(documentClickEvent);
 				}
@@ -167,7 +167,13 @@ public partial class Document : RigidBody2D
 
     public Dictionary<string,FieldState> StateIndex { get; set; } = new Dictionary<string, FieldState>()
     {
-        {"test", new FieldState() {FilledType = FilledType.UNFILLED}}
+		{"rectangle", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"favouriteColour", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"symptoms", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"email", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"address", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"7c", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"compliments", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"complaints", new FieldState() {FilledType = FilledType.UNFILLED}},
     };
-
 }
