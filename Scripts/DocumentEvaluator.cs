@@ -2,8 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Xml;
 
 public static class DocumentEvaluator
 {
@@ -14,6 +12,8 @@ public static class DocumentEvaluator
 
     private static Dictionary<Color, List<Vector2I>> InitialisePixelArray()
     {
+        _colourMap = new Dictionary<Vector2I,Color>();
+
         var texture = ResourceLoader.Load<Texture2D>("res://ClickAreaIndex.png").GetImage();
         
         var dictionary = new Dictionary<Color, List<Vector2I>>();
@@ -102,12 +102,12 @@ public static class DocumentEvaluator
 
         foreach (var point in points)
         {
-            if(_colourMap[point] == colour)
+            if(_colourMap[CoordinateUtilities.WorldToTexture(point)] == colour)
             {
                 return true;
             }
         }
-        
+
         return false;
     }
 
