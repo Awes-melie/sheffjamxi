@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dyro3blir66vi"]
+[gd_scene load_steps=12 format=3 uid="uid://clsjg8mwceife"]
 
 [ext_resource type="Texture2D" uid="uid://ccaeb03mxqa8p" path="res://Main menu/logo.png" id="1_u0hc6"]
 [ext_resource type="Script" uid="uid://d2wbeddirp3a" path="res://Main menu/animation_player.gd" id="2_kav84"]
@@ -155,10 +155,12 @@ grow_vertical = 2
 [node name="logo" type="TextureRect" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-offset_left = 70.0
-offset_top = -174.0
-offset_right = 1070.0
-offset_bottom = 826.0
+anchor_left = 0.077
+anchor_right = 0.077
+offset_left = 54.44
+offset_top = -156.0
+offset_right = 1054.44
+offset_bottom = 844.0
 texture = ExtResource("1_u0hc6")
 
 [node name="background" type="TextureRect" parent="."]
@@ -166,16 +168,16 @@ z_index = -1
 layout_mode = 0
 offset_left = 5.0
 offset_top = -4.0
-offset_right = 1152.0
-offset_bottom = 631.0
+offset_right = 1311.0
+offset_bottom = 719.0
 texture = SubResource("CanvasTexture_u0hc6")
 
 [node name="introText" type="RichTextLabel" parent="."]
 z_index = 1
 layout_mode = 0
-offset_left = 201.0
+offset_left = 285.0
 offset_top = 136.0
-offset_right = 950.0
+offset_right = 1034.0
 offset_bottom = 487.0
 theme = ExtResource("7_pd5e5")
 text = "You need to get a doctors appointment
@@ -188,10 +190,10 @@ visible_ratio = 0.0
 
 [node name="TextureButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 457.0
-offset_top = 540.0
-offset_right = 664.0
-offset_bottom = 607.0
+offset_left = 544.0
+offset_top = 563.0
+offset_right = 751.0
+offset_bottom = 630.0
 texture_normal = ExtResource("2_mhorx")
 texture_pressed = ExtResource("3_7csrk")
 stretch_mode = 5
