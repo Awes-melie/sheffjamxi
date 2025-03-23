@@ -22,7 +22,7 @@ position = Vector2(23, -45)
 position = Vector2(0, -724)
 
 [node name="Document" parent="." instance=ExtResource("1_x4av3")]
-position = Vector2(23, -1)
+position = Vector2(40, -1)
 
 [node name="Guillotine" parent="." instance=ExtResource("2_x4av3")]
 position = Vector2(-290, 1.99997)
@@ -96,10 +96,22 @@ offset_bottom = -190.0
 [node name="RichTextLabel" type="RichTextLabel" parent="UI/DialogController"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
-text = "Test text is here yabadabadabada
+text = "
+
 "
 script = ExtResource("8_hbc2u")
 CharSpeed = 10
 
+[node name="Button" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = 396.0
+offset_top = -10.0
+offset_right = 551.0
+offset_bottom = 21.0
+focus_mode = 0
+text = "Request New Form
+"
+
 [connection signal="toggled" from="UI/Pen" to="Hand" method="_on_pen_toggled"]
 [connection signal="toggled" from="UI/Pencil" to="Hand" method="_on_pencil_toggled"]
+[connection signal="pressed" from="UI/Button" to="Document" method="_on_button_pressed"]

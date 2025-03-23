@@ -12,8 +12,6 @@ public class DocumentUvMapper
         _actionIndex = new Dictionary<string, Action<DocumentClickEvent>>{
             {"test", clickEvent => DefaultClickBehaviour("test", clickEvent)}
         };
-
-        DialogHandler.Instance.ShowDialog("Hello, World!");
     }
 
     public void ClickDocument(DocumentClickEvent clickEvent)
