@@ -40,6 +40,7 @@ public partial class Document : RigidBody2D
 
 		var newDocument = _documentScene.Instantiate<Document>();
 		GetParent().AddChild(newDocument);
+		newDocument.Position = new Vector2(255, 67);
 
 	}
 

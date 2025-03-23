@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dk8ehwp7qq357"]
+[gd_scene load_steps=14 format=3 uid="uid://dk8ehwp7qq357"]
 
 [ext_resource type="Texture2D" uid="uid://bhvfjac56y6q7" path="res://background.png" id="1_8xkvn"]
 [ext_resource type="PackedScene" uid="uid://cbmwckjlr0jsd" path="res://Hand.tscn" id="1_rpqi1"]
@@ -9,6 +9,68 @@
 [ext_resource type="ButtonGroup" uid="uid://cyj1e7ofxuu3l" path="res://pen pencil;.tres" id="5_5crlr"]
 [ext_resource type="Script" uid="uid://cpkkrub5c8m2t" path="res://DialogHandler.cs" id="8_hbc2u"]
 [ext_resource type="Texture2D" uid="uid://dgsy6hr6upv3b" path="res://guillotineTop.png" id="9_torvr"]
+[ext_resource type="FontFile" uid="uid://c8dgvsbv5flbn" path="res://Main menu/04B_03__.TTF" id="10_p5x2j"]
+
+[sub_resource type="Animation" id="Animation_p5x2j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RichTextLabel:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8xkvn"]
+resource_name = "play_text"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.001, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RichTextLabel:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 8.06667, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p5x2j"]
+_data = {
+&"RESET": SubResource("Animation_p5x2j"),
+&"play_text": SubResource("Animation_8xkvn")
+}
 
 [node name="MainScene" type="Node2D"]
 
@@ -16,6 +78,15 @@
 position = Vector2(0, 24)
 scale = Vector2(6.4, 6.4)
 texture = ExtResource("1_8xkvn")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 429.0
+offset_top = -150.0
+offset_right = 601.0
+offset_bottom = -127.0
+theme_override_fonts/font = ExtResource("10_p5x2j")
+text = "Ring for a new form"
+horizontal_alignment = 1
 
 [node name="Hand" parent="." instance=ExtResource("1_rpqi1")]
 z_index = 7
@@ -29,13 +100,13 @@ zoom = Vector2(1, 0.98)
 position = Vector2(0, -724)
 
 [node name="Document" parent="." instance=ExtResource("1_x4av3")]
-position = Vector2(56, 16)
+position = Vector2(255, 67)
 
 [node name="Guillotine" parent="." instance=ExtResource("2_x4av3")]
-position = Vector2(-290, 1.99997)
+position = Vector2(-272, 11)
 
 [node name="Bin" parent="." instance=ExtResource("4_uxrcv")]
-position = Vector2(545, 656)
+position = Vector2(545, 600)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -46,7 +117,7 @@ offset_bottom = 40.0
 [node name="Pen" type="TextureButton" parent="UI"]
 layout_mode = 0
 offset_left = -640.0
-offset_top = -328.0
+offset_top = -256.0
 offset_right = -360.0
 offset_bottom = -195.0
 focus_mode = 0
@@ -65,37 +136,63 @@ toggle_mode = true
 button_group = ExtResource("5_5crlr")
 stretch_mode = 0
 
-[node name="DialogController" type="BoxContainer" parent="UI"]
+[node name="DialogController" type="NinePatchRect" parent="UI"]
 layout_mode = 0
-offset_left = -568.0
-offset_top = -312.0
-offset_right = -120.0
-offset_bottom = -190.0
+offset_left = -640.0
+offset_top = -360.0
+offset_right = -140.0
+offset_bottom = -238.0
+region_rect = Rect2(0, 0, 64, 64)
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="UI/DialogController"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
+offset_left = 19.0
+offset_top = 24.0
+offset_right = 519.0
+offset_bottom = 275.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("10_p5x2j")
 text = "
 
 "
 script = ExtResource("8_hbc2u")
 CharSpeed = 10
 
-[node name="Button" type="Button" parent="UI"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/DialogController/RichTextLabel"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_p5x2j")
+}
+
+[node name="Request New Form" type="TextureButton" parent="UI"]
 layout_mode = 0
-offset_left = 424.0
-offset_top = -264.0
-offset_right = 579.0
-offset_bottom = -233.0
+offset_left = 454.0
+offset_top = -288.0
+offset_right = 545.0
+offset_bottom = -213.0
 focus_mode = 0
-text = "Request New Form
-"
 
 [node name="GuillotineTop" type="Sprite2D" parent="."]
+z_index = 6
 position = Vector2(-3.8147e-06, 24)
 scale = Vector2(6.4, 6.4)
 texture = ExtResource("9_torvr")
 
+[node name="guillotine button" type="TextureButton" parent="GuillotineTop"]
+offset_left = -48.2813
+offset_top = -0.781248
+offset_right = -34.2813
+offset_bottom = 14.2188
+
 [connection signal="toggled" from="UI/Pen" to="Hand" method="_on_pen_toggled"]
 [connection signal="toggled" from="UI/Pencil" to="Hand" method="_on_pencil_toggled"]
-[connection signal="pressed" from="UI/Button" to="Document" method="_on_button_pressed"]
+[connection signal="pressed" from="UI/Request New Form" to="Document" method="_on_button_pressed"]
+[connection signal="pressed" from="GuillotineTop/guillotine button" to="Guillotine" method="_on_pressed"]
