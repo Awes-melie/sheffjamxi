@@ -59,19 +59,25 @@ public partial class Document : RigidBody2D
 
 			if (toolType != ToolType.HAND) 
 			{
-				var documentClickEvent = new DocumentClickEvent(toolType, CoordinateUtilities.WorldToTexture(_mouseGrabbedPosition) , this);
+				if (toolType == ToolType.PEN) 
+				{
+					var documentClickEvent = new DocumentClickEvent(toolType, CoordinateUtilities.WorldToTexture(_mouseGrabbedPosition) , this);
 
-				DocumentUvMapper.Instance.ClickDocument(documentClickEvent);
+					DocumentUvMapper.Instance.ClickDocument(documentClickEvent);
+				}
 
-				_line = new Line2D();
-				_line.Width = 2;
-				Polygon2D.AddChild(_line);
+				
+				if (toolType == ToolType.PENCIL) 
+				{
+					_line = new Line2D();
+					_line.Width = 2;
+					Polygon2D.AddChild(_line);
+					_line.DefaultColor = Colors.DarkGray;
+				}
+				
+				return;		
 
-				if (toolType == ToolType.PEN) {_line.DefaultColor = Colors.Black;}
-				if (toolType == ToolType.PENCIL) {_line.DefaultColor = Colors.Gray;}
-						
-
-				return;
+				
 				}
 
 

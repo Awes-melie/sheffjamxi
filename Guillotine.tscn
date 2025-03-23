@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://csk62a5ft3bry" path="res://Guillotine.cs" id="1_abgre"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uxrcv"]
-size = Vector2(400, 1)
+size = Vector2(500, 1)
 
 [node name="Guillotine" type="Area2D"]
 script = ExtResource("1_abgre")
@@ -14,7 +14,7 @@ shape = SubResource("RectangleShape2D_uxrcv")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(-200, 9, -200, 8, 200, 8, 200, 9)
+polygon = PackedVector2Array(-250, 9, -250, 8, 250, 8, 250, 9)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

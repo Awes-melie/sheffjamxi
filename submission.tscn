@@ -14,13 +14,13 @@ script = ExtResource("1_inaa2")
 shape = SubResource("WorldBoundaryShape2D_b28p3")
 
 [node name="Label" type="Label" parent="."]
-offset_left = -24.0
-offset_top = 23.0
-offset_right = 26.0
-offset_bottom = 98.0
+offset_left = -44.0
+offset_top = 279.0
+offset_right = 45.0
+offset_bottom = 354.0
 text = "Î
-Paper,
-Please"
+Form
+Submission"
 horizontal_alignment = 1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
