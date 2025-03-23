@@ -10,6 +10,7 @@ public static class DocumentEvaluator
     public static float ValidFieldColourProportion { get; set; } = 0.95f;
 
     private static Dictionary<Color,List<Vector2I>> _pixelMap = InitialisePixelArray();
+    private static Dictionary<Vector2I,Color> _colourMap;
 
     private static Dictionary<Color, List<Vector2I>> InitialisePixelArray()
     {
@@ -22,11 +23,14 @@ public static class DocumentEvaluator
             for (int y = 0; y < texture.GetHeight(); y++)
             {
                 var colour = texture.GetPixel(x,y);
+                var point = new Vector2I(x,y);
                 if(!dictionary.ContainsKey(colour))
                 {
-                    dictionary.TryAdd(colour, [new Vector2I(x,y)]);
+                    dictionary.TryAdd(colour, [point]);
+                    _colourMap.TryAdd(point, colour);
                 } else {
-                    dictionary[colour].Add(new Vector2I(x,y));
+                    dictionary[colour].Add(point);
+                    _colourMap.TryAdd(point, colour);
                 }
             }   
         }
@@ -87,6 +91,24 @@ public static class DocumentEvaluator
         
         var proportion = (float)sum / _pixelMap[colour].Count;
         return present ? proportion > ValidFieldColourProportion : proportion < 1 - ValidFieldColourProportion ;
+    }
+
+        public static bool CheckFieldHasDrawing(this Document document, string field, bool present)
+    {
+        var colour = DocumentUvMapper.ColourIndex.FirstOrDefault(x => x.Item2 == field).Item1;
+        
+        var lines = document.Polygon2D.GetChildren().Cast<Line2D>();
+        var points = lines.SelectMany(x => x.Points).Select(y => (Vector2I)y.Floor());
+
+        foreach (var point in points)
+        {
+            if(_colourMap[point] == colour)
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     private static bool IsPointInDocument(this Document document, Vector2I point)
