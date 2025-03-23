@@ -36,9 +36,7 @@ public partial class Submission : Area2D
 
 
     public void giveFeedback( String issue) {
-        DialogHandler.Instance.ShowDialog("This looks almost perfect...");
-        DialogHandler.Instance.ShowDialog("There is only one thing...");
-        DialogHandler.Instance.ShowDialog(issue);
+        DialogHandler.Instance.ShowDialog($"This looks almost perfect... \nThere is only one thing... \n{issue}");
     }
 
     public void returnForm() {
