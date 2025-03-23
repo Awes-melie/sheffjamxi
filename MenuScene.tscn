@@ -166,10 +166,8 @@ texture = ExtResource("1_u0hc6")
 [node name="background" type="TextureRect" parent="."]
 z_index = -1
 layout_mode = 0
-offset_left = 5.0
-offset_top = -4.0
-offset_right = 1311.0
-offset_bottom = 719.0
+offset_right = 1306.0
+offset_bottom = 723.0
 texture = SubResource("CanvasTexture_u0hc6")
 
 [node name="introText" type="RichTextLabel" parent="."]

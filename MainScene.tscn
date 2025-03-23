@@ -16,20 +16,6 @@
 z_index = 7
 position = Vector2(23, -45)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="Submission" parent="." instance=ExtResource("3_hbc2u")]
-position = Vector2(0, -724)
-
-[node name="Document" parent="." instance=ExtResource("1_x4av3")]
-position = Vector2(56, 16)
-
-[node name="Guillotine" parent="." instance=ExtResource("2_x4av3")]
-position = Vector2(-290, 1.99997)
-
-[node name="Bin" parent="." instance=ExtResource("4_uxrcv")]
-position = Vector2(545, 656)
-
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -111,6 +97,20 @@ offset_bottom = 21.0
 focus_mode = 0
 text = "Request New Form
 "
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Submission" parent="." instance=ExtResource("3_hbc2u")]
+position = Vector2(0, -724)
+
+[node name="Guillotine" parent="." instance=ExtResource("2_x4av3")]
+position = Vector2(-290, 1.99997)
+
+[node name="Document" parent="." instance=ExtResource("1_x4av3")]
+position = Vector2(56, 16)
+
+[node name="Bin" parent="." instance=ExtResource("4_uxrcv")]
+position = Vector2(545, 656)
 
 [connection signal="toggled" from="UI/Pen" to="Hand" method="_on_pen_toggled"]
 [connection signal="toggled" from="UI/Pencil" to="Hand" method="_on_pencil_toggled"]
