@@ -153,7 +153,10 @@ public partial class Document : RigidBody2D
 
 		var combinedTexture = textures.Aggregate((imgA, imgB) =>
 		{
-			var temp = imgA.GetRegion(imgA.GetUsedRect());
+			imgA.Convert(Image.Format.Rgba8);
+			imgB.Convert(Image.Format.Rgba8);
+
+			var temp = imgA.GetRegion(new Rect2I(0,0,imgA.GetWidth(),imgA.GetHeight()));
 			temp.BlendRect(imgB, new Rect2I(0,0,imgB.GetWidth(),imgB.GetHeight()), Vector2I.Zero);
 			return temp;
 		});
