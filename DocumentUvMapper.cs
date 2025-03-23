@@ -19,8 +19,6 @@ public class DocumentUvMapper
             {"compliments", clickEvent => DefaultClickBehaviour("compliments",clickEvent)},
             {"complaints", clickEvent => DefaultClickBehaviour("complaints",clickEvent)},
         };
-
-        DialogHandler.Instance.ShowDialog("Hello, World!");
     }
 
     public void ClickDocument(DocumentClickEvent clickEvent)

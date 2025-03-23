@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Principal;
 
 public partial class Document : RigidBody2D
@@ -33,6 +34,14 @@ public partial class Document : RigidBody2D
 		_baseImage = Polygon2D.Texture.GetImage();
 		_baseImage.Convert(Image.Format.Rgba8);
     }
+
+
+	public void _on_button_pressed() {
+
+		var newDocument = _documentScene.Instantiate<Document>();
+		GetParent().AddChild(newDocument);
+
+	}
 
     public override void _PhysicsProcess(double delta)
 	{
