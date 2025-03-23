@@ -18,9 +18,22 @@ public class DocumentUvMapper
             {"7c", clickEvent => DefaultClickBehaviour("7c",clickEvent)},
             {"compliments", clickEvent => DefaultClickBehaviour("compliments",clickEvent)},
             {"complaints", clickEvent => DefaultClickBehaviour("complaints",clickEvent)},
-            {"alias", clickEvent => { 
-                GD.Print("OnClickalias");
-                DefaultClickBehaviour("alias",clickEvent); } },
+            {"alias", clickEvent => { DefaultClickBehaviour("alias",clickEvent); } },
+            {"name", clickEvent => { DefaultClickBehaviour("name",clickEvent); } },
+            {"john", clickEvent => { DefaultClickBehaviour("john",clickEvent); } },
+            {"age", clickEvent => {DefaultClickBehaviour("age",clickEvent);}},
+            {"dislikedColour", clickEvent => {DefaultClickBehaviour("dislikedColour",clickEvent);}},
+            {"oranges", clickEvent => {DefaultClickBehaviour("oranges",clickEvent);}},
+            {"tlc", clickEvent => {DefaultClickBehaviour("tlc",clickEvent);}},
+            {"pc", clickEvent => {DefaultClickBehaviour("pc",clickEvent);}},
+            {"bbj", clickEvent => {DefaultClickBehaviour("bbj",clickEvent);}},
+            {"8c", clickEvent => {DefaultClickBehaviour("8c",clickEvent);}},
+            {"9c", clickEvent => {DefaultClickBehaviour("9c",clickEvent);}},
+            {"pk", clickEvent => {DefaultClickBehaviour("pk",clickEvent);}},
+            {"tmdd", clickEvent => {DefaultClickBehaviour("tmdd",clickEvent);}},
+            {"faxNo", clickEvent => {DefaultClickBehaviour("faxNo",clickEvent);}},
+            {"landline", clickEvent => {DefaultClickBehaviour("landline",clickEvent);}},
+            {"attempt", clickEvent => {DefaultClickBehaviour("attempt",clickEvent);}},
         };
     }
 
@@ -74,6 +87,22 @@ public class DocumentUvMapper
         new Tuple<Color, string>(new Color(56/255f, 251/255f, 205/255f, 1),"compliments"),
         new Tuple<Color, string>(new Color(120/255f, 235/255f, 215/255f, 1),"complaints"),
         new Tuple<Color, string>(new Color(124/255f, 85/255f, 185/255f, 1),"alias"),
+        new Tuple<Color,string>(new Color(141/255f,118/255f,178/255f), "name"),
+        new Tuple<Color,string>(new Color(163/255f,119/255f,177/255f), "john"),
+        new Tuple<Color,string>(new Color(148/255f,119/255f,177/255f), "age"),
+        new Tuple<Color,string>(new Color(185/255f,85/255f,108/255f), "dislikedColour"),
+        new Tuple<Color,string>(new Color(183/255f,107/255f,16/255f), "oranges"),
+        new Tuple<Color,string>(new Color(183/255f,17/255f,16/255f), "tlc"),
+        new Tuple<Color,string>(new Color(183/255f,17/255f,20/255f), "bbj"),
+        new Tuple<Color,string>(new Color(183/255f,17/255f,50/255f), "9c"),
+        new Tuple<Color,string>(new Color(183/255f,17/255f,70/255f), "pk"),
+        new Tuple<Color,string>(new Color(183/255f,16/255f,139/255f), "pc"),
+        new Tuple<Color,string>(new Color(183/255f,16/255f,100/255f), "8c"),
+        new Tuple<Color,string>(new Color(183/255f,15/255f,140/255f), "tmdd"),
+        new Tuple<Color,string>(new Color(17/255f,183/255f,151/255f), "faxNo"),
+        new Tuple<Color,string>(new Color(17/255f,183/255f,100 /255f), "landline"),
+        new Tuple<Color,string>(new Color(61/255f,118/255f,135 /255f), "attempt"),
+
     };
 
     private Dictionary<string,Action<DocumentClickEvent>> _actionIndex;
@@ -89,5 +118,20 @@ public class DocumentUvMapper
         {"compliments", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/compliments.png")},
         {"complaints", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/complaints.png")},
         {"alias", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/alias.png")},
+        {"name", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/name.png")},
+        {"john", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/john.png")},
+        {"age", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/age.png")},
+        {"dislikedColour", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/dislikedColour.png")},
+        {"oranges", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/oranges.png")},
+        {"tlc", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/tlc.png")},
+        {"pc", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/pc.png")},
+        {"bbj", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/bbj.png")},
+        {"8c", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/8c.png")},
+        {"9c", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/9c.png")},
+        {"pk", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/pk.png")},
+        {"tmdd", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/tmdd.png")},
+        {"faxNo", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/faxNo.png")},
+        {"landline", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/landline.png")},
+        {"attempt", ResourceLoader.Load<Texture2D>("res://TextOverlaySprites/attempt.png")},
     };
 }

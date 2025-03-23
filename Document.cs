@@ -188,5 +188,35 @@ public partial class Document : RigidBody2D
 		{"compliments", new FieldState() {FilledType = FilledType.UNFILLED}},
 		{"complaints", new FieldState() {FilledType = FilledType.UNFILLED}},
 		{"alias", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"name", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"john", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"age", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"dislikedColour", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"oranges", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"tlc", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"pc", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"bbj", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"8c", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"9c", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"pk", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"tmdd", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"faxNo", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"landline", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"attempt", new FieldState() {FilledType = FilledType.UNFILLED}},
     };
 }
+
+/*
+age
+dislikedColour
+oranges
+tlc
+pc
+bbj
+8c
+9c
+pk
+tmdd
+faxNo
+landline
+*/
