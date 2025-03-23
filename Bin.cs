@@ -31,7 +31,7 @@ public partial class Bin : Area2D
 
             if (!_grabbing) {
                 foreach (Document document in _documents) {
-                    document.ConstantForce = new Vector2(50, 10000);
+                    document.ConstantForce = new Vector2(100, 50000);
                 }
             }
         }

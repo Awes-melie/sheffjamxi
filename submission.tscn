@@ -19,9 +19,9 @@ shape = SubResource("WorldBoundaryShape2D_b28p3")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -44.0
-offset_top = 465.0
+offset_top = 414.0
 offset_right = 45.0
-offset_bottom = 540.0
+offset_bottom = 489.0
 text = "Î
 Form
 Submission"

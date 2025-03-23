@@ -42,14 +42,14 @@ public partial class Submission : Area2D
     }
 
     public void returnForm() {
-       _submittedDocument.ConstantForce = (new Vector2(0,10000));
+       _submittedDocument.ConstantForce = (new Vector2(0,50000));
     }
 
 
 
     public void _on_body_entered(Node2D body) {
         if (body is Document document) {
-            document.ConstantForce = (new Vector2(0,-10000));
+            document.ConstantForce = (new Vector2(0,-50000));
         }
     }
 
