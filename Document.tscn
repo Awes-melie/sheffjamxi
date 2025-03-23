@@ -23,6 +23,7 @@ polygon = PackedVector2Array(-198.5, -280.5, 198.5, -280.5, 198.5, 280.5, -198.5
 uv = PackedVector2Array(-128, -192, 128, -192, 128, 192, -128, 192)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+texture_filter = 4
 texture = ExtResource("2_jnxnq")
 texture_offset = Vector2(198.5, 280.5)
 texture_scale = Vector2(2, 2)

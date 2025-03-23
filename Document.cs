@@ -187,5 +187,6 @@ public partial class Document : RigidBody2D
 		{"7c", new FieldState() {FilledType = FilledType.UNFILLED}},
 		{"compliments", new FieldState() {FilledType = FilledType.UNFILLED}},
 		{"complaints", new FieldState() {FilledType = FilledType.UNFILLED}},
+		{"alias", new FieldState() {FilledType = FilledType.UNFILLED}},
     };
 }

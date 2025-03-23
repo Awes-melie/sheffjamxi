@@ -60,7 +60,7 @@ public static class DocumentEvaluator
 
         
         // This need functionality behind it
-        //new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("Aliases", FilledType.PEN), "We do not associate with criminals. Please start again.", true),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("alias", FilledType.UNFILLED), "We do not associate with criminals. Please start again.", true),
         
         // Rule 2
 
