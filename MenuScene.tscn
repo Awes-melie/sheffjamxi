@@ -178,7 +178,7 @@ offset_top = 136.0
 offset_right = 1034.0
 offset_bottom = 487.0
 theme = ExtResource("7_pd5e5")
-text = "You need to get a doctors appointment
+text = "Can you get a doctor's appointment?
 
 good luck :)"
 fit_content = true
