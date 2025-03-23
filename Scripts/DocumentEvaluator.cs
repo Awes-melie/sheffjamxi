@@ -1,9 +1,39 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Xml;
 
 public static class DocumentEvaluator
 {
+    public static float ValidFieldColourProportion { get; set; } = 0.95f;
+
+    private static Dictionary<Color,List<Vector2I>> _pixelMap = InitialisePixelArray();
+
+    private static Dictionary<Color, List<Vector2I>> InitialisePixelArray()
+    {
+        var texture = ResourceLoader.Load<Texture2D>("res://ClickAreaIndex.png").GetImage();
+        
+        var dictionary = new Dictionary<Color, List<Vector2I>>();
+
+        for (int x = 0; x < texture.GetWidth(); x++)
+        {
+            for (int y = 0; y < texture.GetHeight(); y++)
+            {
+                var colour = texture.GetPixel(x,y);
+                if(!dictionary.ContainsKey(colour))
+                {
+                    dictionary.TryAdd(colour, [new Vector2I(x,y)]);
+                } else {
+                    dictionary[colour].Add(new Vector2I(x,y));
+                }
+            }   
+        }
+
+        return dictionary;
+    }
+
     public static DocumentResponse EvaluateDocument(Document document)
     {
         foreach (var rule in _rules)
@@ -40,5 +70,29 @@ public static class DocumentEvaluator
     public static bool CheckHasFieldInState(this Document document, string field, FilledType state)
     {
         return document.StateIndex[field].FilledType == state;
+    }
+
+    public static bool CheckHasFieldColour(this Document document, string field, bool present)
+    {
+        var colour = DocumentUvMapper.ColourIndex.FirstOrDefault(x => x.Item2 == field).Item1;
+
+        var sum = 0;
+        foreach (var pixel in _pixelMap[colour])
+        {
+            if (document.IsPointInDocument(pixel))
+            {
+                sum ++;
+            }
+        }
+        
+        var proportion = (float)sum / _pixelMap[colour].Count;
+        return present ? proportion > ValidFieldColourProportion : proportion < 1 - ValidFieldColourProportion ;
+    }
+
+    private static bool IsPointInDocument(this Document document, Vector2I point)
+    {
+        var uv = document.Polygon2D.UV;
+        var mappedUV = uv.Select(x => (Vector2)CoordinateUtilities.WorldToTexture(x)).ToArray();
+        return Geometry2D.IsPointInPolygon(point, mappedUV);
     }
 }
