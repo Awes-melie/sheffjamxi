@@ -1,2 +1,2 @@
 # sheffjamxi
-Game, Please!'s game for submission
+Game, Please!'s game for SheffJam 11
