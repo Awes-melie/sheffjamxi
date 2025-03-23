@@ -42,7 +42,7 @@ public static class DocumentEvaluator
     {
         foreach (var rule in _rules)
         {
-            if(rule.Item1.Invoke(document))
+            if(rule.Item1.Invoke(document) == false)
             {
                 return new DocumentResponse(rule.Item3 ? ValidationResult.FAIL : ValidationResult.MISTAKE, rule.Item2);
             }
@@ -56,18 +56,17 @@ public static class DocumentEvaluator
 
         // Rule 1
 
-        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("7c3sCheckBox", FilledType.PEN), "Please check tick box 7c of section 3s", false),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("7c", FilledType.PEN), "Please check tick box 7c of section 3s", false),
 
 
         // Rule 2
 
-        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("asterix1",FilledType.UNFILLED), "Do not fill in the asterix'd fields, Please! Start Over.", true),
-        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("asterix1",FilledType.UNFILLED), "Do not fill in the asterix'd fields, Please! Start Over.", true),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("email",FilledType.UNFILLED), "Do not fill in the asterix'd fields, Please! Start Over.", true),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("address",FilledType.UNFILLED), "Do not fill in the asterix'd fields, Please! Start Over.", true),
 
-        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("starred1",FilledType.PEN), "You are missing entries in the starred fields", false),
-        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("starred2",FilledType.PEN), "You are missing entries in the starred fields", false),
-        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("starred3",FilledType.PEN), "You are missing entries in the starred fields", false),
-        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("starred4",FilledType.PEN), "You are missing entries in the starred fields", false),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("rectangle",FilledType.PEN), "You are missing entries in the starred fields", false),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("favouriteColour",FilledType.PEN), "You are missing entries in the starred fields", false),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("symptoms",FilledType.PEN), "You are missing entries in the starred fields", false),
 
         // Rule 3
 
@@ -90,8 +89,8 @@ public static class DocumentEvaluator
 
         // Rule 7
 
-        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckFieldHasDrawing("DashedLine", true), "We require a signature. Sign the dashed line, if you please", false),
-        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckFieldHasDrawing("DottedLine", false), "You have signed on the dotted line, when I clearly stated the dashed line. Start Over.", true),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckFieldHasDrawing("dashedLine", true), "We require a signature. Sign the dashed line, if you please", false),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckFieldHasDrawing("dottedLine", false), "You have signed on the dotted line, when I clearly stated the dashed line. Start Over.", true),
 
         // Rule 8
 
