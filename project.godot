@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="SheffJamXI"
+config/name="Doctor, Please!"
+config/version="1.0"
 run/main_scene="uid://clsjg8mwceife"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://dgm388v6emqlu"
 
 [display]
 
@@ -30,6 +31,7 @@ project/assembly_name="SheffJamXI"
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.532357, 0.781899, 0.933372, 1)
 textures/size/viewport_height=648
 textures/size/viewport_width=1152
 textures/stretch/mode="disabled"

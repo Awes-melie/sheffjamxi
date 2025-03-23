@@ -12,6 +12,7 @@ public partial class Hand : StaticBody2D
     public Hand()
     {
         Instance ??= this;
+        Input.MouseMode = Input.MouseModeEnum.Hidden;
     }
 
     Texture2D handTex = GD.Load<Texture2D>("res://hand.png");
