@@ -1,2 +1,2 @@
 # sheffjamxi
-Team cool's game for da submission
+Game, Please!'s game for submission
