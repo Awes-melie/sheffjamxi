@@ -42,20 +42,66 @@ public static class DocumentEvaluator
     {
         foreach (var rule in _rules)
         {
-            if(rule.Key.Invoke(document))
+            if(rule.Item1.Invoke(document))
             {
-                return new DocumentResponse(false, rule.Value);
+                return new DocumentResponse(rule.Item3 ? ValidationResult.FAIL : ValidationResult.MISTAKE, rule.Item2);
             }
         }
-        return new DocumentResponse(true, "");
+        return new DocumentResponse(ValidationResult.WIN, "");
     }
     
-    private static Dictionary<Func<Document,bool>, string> _rules = new Dictionary<Func<Document,bool>, string>
-    {
-        {doc => doc.SizeDocument() < 100, "Document too small!"},
-        {doc => doc.SizeDocument() > 190000, "Document too big!"},
-        {doc => doc.CheckHasFieldInState("test", FilledType.PEN), "Need test field"},
-    };
+    // Check, Error Message, Is critical error
+    private static List<Tuple<Func<Document,bool>, string, bool>> _rules = 
+    [   
+
+        // Rule 1
+
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("7c3sCheckBox", FilledType.PEN), "Please check tick box 7c of section 3s", false),
+
+
+        // Rule 2
+
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("asterix1",FilledType.UNFILLED), "Do not fill in the asterix'd fields, Please! Start Over.", true),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("asterix1",FilledType.UNFILLED), "Do not fill in the asterix'd fields, Please! Start Over.", true),
+
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("starred1",FilledType.PEN), "You are missing entries in the starred fields", false),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("starred2",FilledType.PEN), "You are missing entries in the starred fields", false),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("starred3",FilledType.PEN), "You are missing entries in the starred fields", false),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("starred4",FilledType.PEN), "You are missing entries in the starred fields", false),
+
+        // Rule 3
+
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckFieldHasDrawing("symptoms", true), "Your symptoms seem too vague, draw them in the box provided.", false),
+
+        // Rule 4
+
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldColour("19.2", false), "This section is too large, politely trim section 19.2", false),
+
+        // Rule 5
+
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldColour("7b", false), "This form has outdated information, kindly remove section 7b", false),
+
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldColour("returnAddress", true), "This form is NOW missing the return address, You will need to start over.", true),
+
+        // Rule 6
+        // TODO: Implement Oranges
+        //new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("oranges",FilledType.PEN), "You are missing entries in the starred fields", false),
+
+
+        // Rule 7
+
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckFieldHasDrawing("DashedLine", true), "We require a signature. Sign the dashed line, if you please", false),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckFieldHasDrawing("DottedLine", false), "You have signed on the dotted line, when I clearly stated the dashed line. Start Over.", true),
+
+        // Rule 8
+
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("compliments",FilledType.PEN), "We are collecting customer feedback, please fill in the survey.", false),
+        new Tuple<Func<Document,bool>,string,bool>(doc => doc.CheckHasFieldInState("complaints",FilledType.UNFILLED), "We aren’t currently accepting complaints, please start again", true),
+
+        //new Tuple<Func<Document,bool>, string, bool>(doc => doc.SizeDocument() < 500000 , "Document too small!", true),
+        //new Tuple<Func<Document,bool>, string, bool>(doc => doc.SizeDocument() > 1900000, "Document too big!", false),
+        //new Tuple<Func<Document,bool>, string, bool>(doc => doc.CheckHasFieldInState("test", FilledType.PEN), "Need test field", false),
+    ];
 
     // Thanks pal https://web.archive.org/web/20100405070507/http://valis.cs.uiuc.edu/~sariel/research/CG/compgeom/msg00831.html
     public static float SizeDocument(this Document document)
